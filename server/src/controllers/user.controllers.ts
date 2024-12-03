@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.models";
 import { uploadImage } from "../utils/cloudinary";
-import { signupSchema } from "../zod/authZod";
+import { loginSchema, signupSchema } from "../zod/authZod";
 
 // Login Controller
 const loginController = async (
@@ -10,7 +10,8 @@ const loginController = async (
   res: Response,
   next: NextFunction
 ): Promise<any> => {
-  const { email, password } = req.body;
+  const validatedData = loginSchema.parse(req.body);
+  const { email, password } = validatedData;
 
   if (!email || !password) {
     return res.status(400).json({
@@ -64,6 +65,7 @@ const signupController = async (
   res: Response,
   next: NextFunction
 ): Promise<any> => {
+  console.log(req.body);
   const validatedData = signupSchema.parse(req.body);
   const { username, email, password, address, phone } = validatedData;
 
@@ -82,8 +84,9 @@ const signupController = async (
         message: "Email already exists.",
       });
     }
+
     //@ts-ignore
-    const image = uploadImage(req.file);
+    const image = await uploadImage(req.file.path);
     const newUser = new User({
       username,
       email,
@@ -103,10 +106,7 @@ const signupController = async (
       success: true,
       message: "User registered successfully",
       token,
-      user: {
-        id: user._id,
-        email: user.email,
-      },
+      user,
     });
   } catch (error) {
     console.error("Signup error:", error);

@@ -1,6 +1,7 @@
 import cloudinary from "cloudinary";
 
 // Cloudinary configuration
+
 //@ts-ignore
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME, // Replace with your Cloudinary cloud name
@@ -12,9 +13,7 @@ cloudinary.config({
 export const uploadImage = async (filePath: string): Promise<string> => {
   try {
     // Upload the image
-    const result = await cloudinary.v2.uploader.upload(filePath, {
-      folder: "your-folder-name", // Optional: Specify a folder in Cloudinary
-    });
+    const result = await cloudinary.v2.uploader.upload(filePath);
 
     // Return the URL of the uploaded image
     return result.secure_url;

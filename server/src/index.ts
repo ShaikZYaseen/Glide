@@ -4,7 +4,7 @@ import cors from "cors";
 import connectDb from "./DB/db";
 import path from "path";
 dotenv.config();
-
+import { userRouter } from "./routes/user.router";
 const app = express();
 
 app.use(express.json());
@@ -15,7 +15,9 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api/v1/auth", userRouter);
+
+app.use("/uploads", express.static(path.join(__dirname, "./src/uploads")));
 
 app.use(cors(corsOptions));
 
