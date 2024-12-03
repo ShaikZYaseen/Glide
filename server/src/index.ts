@@ -2,6 +2,7 @@ import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
 import connectDb from "./DB/db";
+import path from "path";
 dotenv.config();
 
 const app = express();
@@ -13,6 +14,8 @@ const corsOptions = {
   origin: "*",
   credentials: true,
 };
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(cors(corsOptions));
 
