@@ -117,6 +117,27 @@ const signupController = async (
   }
 };
 
+const getProfileController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<any> => {
+  try {
+    //@ts-ignore
+    const id = req.user;
+    const data = await User.findById(id);
+    return res.status(200).json({
+      success: true,
+      user: data,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 // Check if logged in
 const isLoggedin = async (req: Request, res: Response): Promise<any> => {
   const token = req.headers.authorization?.split(" ")[1];
@@ -173,4 +194,10 @@ const logoutController = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
-export { loginController, signupController, isLoggedin, logoutController };
+export {
+  loginController,
+  signupController,
+  isLoggedin,
+  logoutController,
+  getProfileController,
+};
