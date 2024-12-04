@@ -25,4 +25,7 @@ const captainSchema = new mongoose.Schema({
     enum: ["active", "inactive"],
     default: "active",
   },
+  timings: {
+    type: string,
+  },
 });
