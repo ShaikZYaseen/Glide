@@ -32,3 +32,8 @@ export const captainSignupSchema = z.object({
   capacity: z.number().min(1, "Please enter a valid capacity"),
   vehicleType: z.enum(["car", "motorcycle", "auto"]),
 });
+
+export const captainLoginSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(1, "Please enter password"),
+});
