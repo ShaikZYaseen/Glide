@@ -179,7 +179,6 @@ const isLoggedin = async (req: Request, res: Response): Promise<any> => {
 const logoutController = async (req: Request, res: Response): Promise<any> => {
   try {
     res.setHeader("Authorization", ""); // Clear Authorization header
-    res.clearCookie("token", { httpOnly: true, secure: true }); // Clear token cookie if used
 
     return res.status(200).json({
       success: true,

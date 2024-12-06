@@ -140,4 +140,30 @@ const getCaptainProfile = async (
   }
 };
 
-export { captainSignupController, captainLoginController, getCaptainProfile };
+const captainLogoutController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<any> => {
+  try {
+    res.setHeader("Authorization", ""); // Clear Authorization header
+
+    return res.status(200).json({
+      success: true,
+      message: "Logout successful",
+    });
+  } catch (error) {
+    console.error("Logout error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+export {
+  captainSignupController,
+  captainLoginController,
+  getCaptainProfile,
+  captainLogoutController,
+};

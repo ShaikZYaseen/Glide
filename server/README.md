@@ -107,7 +107,7 @@ Requires a valid JWT token in the Authorization header or cookie:
     - `lastname` (string): User's last name (minimum 3 characters).   
   - `email` (string): User's email address (must be a valid email).
   - `password` (string): User's password (minimum 6 characters).
-- `token` (String): JWT Token## `/captains/register` Endpoint
+- `token` (String): JWT Token## `/captains/signup` Endpoint
 
 ### Description
 
@@ -135,7 +135,7 @@ The request body should be in JSON format and include the following fields:
 ### Example Response
 
 
-## `/captains/register` Endpoint
+## `/captains/signup` Endpoint
 
 ### Description
 
