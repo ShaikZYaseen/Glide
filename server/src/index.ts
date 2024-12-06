@@ -4,7 +4,8 @@ import cors from "cors";
 import connectDb from "./DB/db";
 import path from "path";
 dotenv.config();
-import { userRouter } from "./routes/user.router";
+import { userRouter } from "./routes/user.routes";
+import { captainRouter } from "./routes/captain.routes";
 const app = express();
 
 app.use(express.json());
@@ -16,6 +17,7 @@ const corsOptions = {
 };
 
 app.use("/api/v1/auth", userRouter);
+app.use("/api/v1/captain", captainRouter);
 
 app.use("/uploads", express.static(path.join(__dirname, "./src/uploads")));
 
