@@ -1,10 +1,11 @@
-import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Hero from "./pages/Hero";
 
 function App() {
   return (
-    <>
-      <p className="text-red-800">Hello world</p>
-    </>
+    <Routes>
+      <Route path="/" element={<Hero />} />
+    </Routes>
   );
 }
 
