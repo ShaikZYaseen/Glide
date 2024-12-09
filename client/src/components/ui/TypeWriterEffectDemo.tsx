@@ -1,5 +1,6 @@
 "use client";
 
+import { Link } from "react-router-dom";
 import { TypewriterEffect } from "./typewriter-effect";
 
 export function TypewriterEffectDemo() {
@@ -31,9 +32,11 @@ export function TypewriterEffectDemo() {
         <button className="w-40 h-10 rounded-xl bg-black border dark:border-white border-transparent text-white text-sm">
           Join now
         </button>
-        <button className="w-40 h-10 rounded-xl bg-white text-black border border-black  text-sm">
-          Signup
-        </button>
+        <Link to="/signup">
+          <button className="w-40 h-10 rounded-xl bg-white text-black border border-black  text-sm">
+            Signup
+          </button>
+        </Link>
       </div>
     </div>
   );

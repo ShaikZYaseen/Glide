@@ -13,48 +13,51 @@ import { cn } from "../../utils/utils";
 export function FeaturesSectionDemo() {
   const features = [
     {
-      title: "Built for developers",
+      title: "Built for Riders and Drivers",
       description:
-        "Built for engineers, developers, dreamers, thinkers and doers.",
+        "Built for seamless transportation. Whether you're looking for a ride or providing one, Glide is here to connect you with ease.",
       icon: <IconTerminal2 />,
     },
     {
       title: "Ease of use",
       description:
-        "It's as easy as using an Apple, and as expensive as buying one.",
+        "Booking a ride is as simple as tapping a button. Glide gets you moving with zero hassle, anytime, anywhere.",
       icon: <IconEaseInOut />,
     },
     {
-      title: "Pricing like no other",
+      title: "Affordable Rides, Transparent Pricing",
       description:
-        "Our prices are best in the market. No cap, no lock, no credit card required.",
+        "Our fares are competitive, clear, and fair. No hidden charges, no surprises – just rides you can count on.",
       icon: <IconCurrencyDollar />,
     },
     {
-      title: "100% Uptime guarantee",
-      description: "We just cannot be taken down by anyone.",
+      title: "Always Reliable (100% Uptime)",
+      description:
+        "Glide is built to be available 24/7. Our app ensures you’re always connected, even when others aren’t.",
       icon: <IconCloud />,
     },
     {
-      title: "Multi-tenant Architecture",
-      description: "You can simply share passwords instead of buying new seats",
+      title: "Multi-User Support",
+      description:
+        "Riders, drivers, or fleet managers – Glide’s platform is designed to accommodate everyone effortlessly.",
       icon: <IconRouteAltLeft />,
     },
     {
       title: "24/7 Customer Support",
       description:
-        "We are available a 100% of the time. Atleast our AI Agents are.",
+        "Questions? Issues? Our dedicated support team is available round the clock to ensure your journey is smooth.",
       icon: <IconHelp />,
     },
     {
-      title: "Money back guarantee",
+      title: "Ride Satisfaction Guaranteed",
       description:
-        "If you donot like EveryAI, we will convince you to like us.",
+        "If you're not satisfied with your ride, we’ll make it right – because your trust and comfort matter most.",
       icon: <IconAdjustmentsBolt />,
     },
     {
-      title: "And everything else",
-      description: "I just ran out of copy ideas. Accept my sincere apologies",
+      title: "And More Features",
+      description:
+        "From real-time tracking to flexible payment options, Glide is packed with features to redefine your travel experience.",
       icon: <IconHeart />,
     },
   ];
