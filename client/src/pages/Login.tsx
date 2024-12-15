@@ -8,8 +8,8 @@ const Login = () => {
   });
 
   return (
-    <div className="w-full flex justify-center items-center  bg-black">
-      <span className="border-white bg-black">
+    <div className="w-full h-screen flex justify-center items-center  bg-black">
+      <span className="border-white w-1/3 bg-black">
         <LoginForm formData={formData} setFormData={setFormData} />
       </span>
     </div>
