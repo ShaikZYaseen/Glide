@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { LoginForm } from "../components/ui/LoginForm";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,15 @@ const Login = () => {
 
   return (
     <div className="w-full h-screen flex justify-center items-center  bg-black">
+      <Link
+        className="absolute top-5 px-3 overflow-x-hidden w-full  text-white text-[30px] font-bold font-sans"
+        to="/"
+      >
+        <p className="absolute top-5 left-5 text-white text-[30px] font-bold font-sans">
+          Glide
+        </p>
+      </Link>
+
       <span className="border-white w-1/3 bg-black">
         <LoginForm formData={formData} setFormData={setFormData} />
       </span>
