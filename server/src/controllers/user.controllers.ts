@@ -65,11 +65,11 @@ const signupController = async (
   res: Response,
   next: NextFunction
 ): Promise<any> => {
-  console.log(req.body);
   const validatedData = signupSchema.parse(req.body);
-  const { username, email, password, address, phone } = validatedData;
+  const { firstName, lastName, email, password, address, phone } =
+    validatedData;
 
-  if (!username || !email || !password) {
+  if (!firstName || !lastName || !email || !password) {
     return res.status(400).json({
       success: false,
       message: "Please provide username, email, and password.",
@@ -88,7 +88,8 @@ const signupController = async (
     //@ts-ignore
     const image = await uploadImage(req.file.path);
     const newUser = new User({
-      username,
+      firstName,
+      lastName,
       email,
       password,
       image,
