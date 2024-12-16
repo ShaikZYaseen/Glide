@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
+    phone: "",
     email: "",
     image: "",
     password: "",

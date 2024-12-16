@@ -1,8 +1,18 @@
-import React from "react";
 import { FileUpload } from "../components/ui/Upload";
 import { Link } from "react-router-dom";
+import { useSignup } from "../context/SignupContext";
+import Button from "../components/Button";
 
 const Upload = () => {
+  const { signupData, setSignupData } = useSignup();
+
+  const handleFileChange = (files: File[]) => {
+    setSignupData(
+      { image: files[0] } // Store the first file in the photo field
+    );
+    console.log("Hitting", signupData);
+  };
+
   return (
     <div className="w-full h-screen flex items-center justify-center bg-black">
       <Link
@@ -13,8 +23,18 @@ const Upload = () => {
           Glide
         </p>
       </Link>
-
-      <FileUpload />
+      <div className="flex flex-col justify-center items-center">
+        <div className="w-full h-[100%]">
+          <FileUpload onChange={handleFileChange} />
+        </div>
+        <div className="text-center  w-full items-center justify-center">
+          <Button
+            onClick={() => {
+              console.log(signupData);
+            }}
+          ></Button>
+        </div>
+      </div>
     </div>
   );
 };
