@@ -14,12 +14,10 @@ const Login = () => {
         className="absolute top-5 px-3 overflow-x-hidden w-full  text-white text-[30px] font-bold font-sans"
         to="/"
       >
-        <p className="absolute top-5 left-5 text-white text-[30px] font-bold font-sans">
-          Glide
-        </p>
+        <p className="">Glide</p>
       </Link>
 
-      <span className="border-white w-1/3 bg-black">
+      <span className="border-white w-1/3 bg-black mt-5">
         <LoginForm formData={formData} setFormData={setFormData} />
       </span>
     </div>
