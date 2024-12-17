@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, Dispatch, SetStateAction } from "react"; // Ensure all required imports
-import { Label } from "./Label"; // Ensure these components exist and are correctly implemented
+import React, { useState, Dispatch, SetStateAction } from "react";
+import { Label } from "./Label";
 import { Input } from "./Input";
-import { cn } from "../../utils/utils"; // Utility function
+import { cn } from "../../utils/utils";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { useSignup } from "../../context/SignupContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -32,20 +32,72 @@ export function SignupFormDemo({ formData, setFormData }: SignupFormDemoProps) {
   const { setSignupData } = useSignup();
   const navigate = useNavigate();
 
+  // Error state for form validation
+  const [errors, setErrors] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
+
+  // Validation function
+  const validateInputs = () => {
+    const newErrors = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      password: "",
+    };
+    let isValid = true;
+
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "First name is required";
+      isValid = false;
+    }
+
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Last name is required";
+      isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Invalid email format";
+      isValid = false;
+    }
+
+    if (!/^\d{10,}$/.test(formData.phone)) {
+      newErrors.phone = "Phone number must be at least 10 digits";
+      isValid = false;
+    }
+
+    if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters long";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [id]: value, // Use the input's id as the key
+      [id]: value,
     }));
   };
 
   // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSignupData(formData);
-    navigate("/upload");
+    if (validateInputs()) {
+      setSignupData(formData);
+      navigate("/upload");
+    }
   };
 
   return (
@@ -57,24 +109,30 @@ export function SignupFormDemo({ formData, setFormData }: SignupFormDemoProps) {
       <form className="my-8 border-white" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
+            <Label htmlFor="firstName">First name</Label>
             <Input
-              id="firstname"
+              id="firstName"
               placeholder="First name"
               type="text"
               value={formData.firstName}
               onChange={handleInputChange}
             />
+            {errors.firstName && (
+              <span className="text-red-500 text-sm">{errors.firstName}</span>
+            )}
           </LabelInputContainer>
           <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
+            <Label htmlFor="lastName">Last name</Label>
             <Input
-              id="lastname"
+              id="lastName"
               placeholder="Last name"
               type="text"
               value={formData.lastName}
               onChange={handleInputChange}
             />
+            {errors.lastName && (
+              <span className="text-red-500 text-sm">{errors.lastName}</span>
+            )}
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
@@ -86,6 +144,9 @@ export function SignupFormDemo({ formData, setFormData }: SignupFormDemoProps) {
             value={formData.email}
             onChange={handleInputChange}
           />
+          {errors.email && (
+            <span className="text-red-500 text-sm">{errors.email}</span>
+          )}
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="phone">Phone</Label>
@@ -96,6 +157,9 @@ export function SignupFormDemo({ formData, setFormData }: SignupFormDemoProps) {
             value={formData.phone}
             onChange={handleInputChange}
           />
+          {errors.phone && (
+            <span className="text-red-500 text-sm">{errors.phone}</span>
+          )}
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
@@ -106,56 +170,22 @@ export function SignupFormDemo({ formData, setFormData }: SignupFormDemoProps) {
             value={formData.password}
             onChange={handleInputChange}
           />
+          {errors.password && (
+            <span className="text-red-500 text-sm">{errors.password}</span>
+          )}
         </LabelInputContainer>
 
         <button
-          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium"
           type="submit"
         >
-          continue &rarr;
-          <BottomGradient />
+          Continue &rarr;
         </button>
-
-        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
-
-        <div className="flex flex-col space-y-4">
-          <button
-            className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="button"
-          >
-            <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              Google
-            </span>
-            <BottomGradient />
-          </button>
-          <button
-            className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="button"
-          >
-            <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              GitHub
-            </span>
-            <BottomGradient />
-          </button>
-        </div>
       </form>
     </div>
   );
 }
 
-// BottomGradient Component remains unchanged
-const BottomGradient = () => {
-  return (
-    <>
-      <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-      <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-    </>
-  );
-};
-
-// LabelInputContainer Helper Component
 const LabelInputContainer = ({
   children,
   className,
