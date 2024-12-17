@@ -107,11 +107,8 @@ export function LoginForm({ formData, setFormData }: LoginFormProps) {
           )}
         </LabelInputContainer>
 
-        <p className="text-center text-sm text-neutral-700 dark:text-neutral-300">
-          Don’t have an account?{" "}
-          <Link to="/signup" className="text-blue-600">
-            Sign up
-          </Link>
+        <p className="text-center text-[10px] text-neutral-700 dark:text-neutral-300">
+          Don’t have an account? <Link to="/signup">Signup</Link>
         </p>
 
         <button
@@ -123,8 +120,18 @@ export function LoginForm({ formData, setFormData }: LoginFormProps) {
 
         <Divider />
 
-        <OAuthButton icon={<IconBrandGoogle />} label="Continue with Google" />
-        <OAuthButton icon={<IconBrandGithub />} label="Continue with GitHub" />
+        <p>
+          <OAuthButton
+            icon={<IconBrandGoogle />}
+            label="Continue with Google"
+          />
+        </p>
+        <p className="mt-2">
+          <OAuthButton
+            icon={<IconBrandGithub />}
+            label="Continue with GitHub"
+          />
+        </p>
       </form>
     </div>
   );
