@@ -4,10 +4,11 @@ interface signupProps {
   firstName: string;
   lastName: string;
 }
+const link = import.meta.env.BACKEND_URL;
 
 export async function Signup(data: signupProps) {
   try {
-    let url = `localhost:3000/api/v1/auth/signup`;
+    let url = `${link}/api/v1/auth/signup`;
     const response = await axios.post(url, data);
     return response.data;
   } catch (error) {

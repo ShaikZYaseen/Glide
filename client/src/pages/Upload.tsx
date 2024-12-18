@@ -1,7 +1,7 @@
 import { FileUpload } from "../components/ui/Upload";
 import { Link } from "react-router-dom";
 import { useSignup } from "../context/SignupContext";
-import Button from "../components/Button";
+import Button from "../components/ui/Button";
 
 const Upload = () => {
   const { signupData, setSignupData } = useSignup();
