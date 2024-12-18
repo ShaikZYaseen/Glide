@@ -3,8 +3,13 @@ import axios from "axios";
 interface signupProps {
   firstName: string;
   lastName: string;
+  phone: string;
+  email: string;
+  image?: string;
+  password: string;
 }
-const link = import.meta.env.BACKEND_URL;
+
+const link = import.meta.env.BACKEND_URL || "http://localhost:8080";
 
 export async function Signup(data: signupProps) {
   try {

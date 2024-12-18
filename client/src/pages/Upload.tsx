@@ -2,6 +2,7 @@ import { FileUpload } from "../components/ui/Upload";
 import { Link } from "react-router-dom";
 import { useSignup } from "../context/SignupContext";
 import Button from "../components/ui/Button";
+import { Signup } from "../services/auth";
 
 const Upload = () => {
   const { signupData, setSignupData } = useSignup();
@@ -11,6 +12,15 @@ const Upload = () => {
       { image: files[0] } // Store the first file in the photo field
     );
     console.log("Hitting", signupData);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await Signup(signupData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -30,7 +40,7 @@ const Upload = () => {
         <div className="text-center  w-full items-center justify-center">
           <Button
             onClick={() => {
-              console.log(signupData);
+              handleSubmit();
             }}
           ></Button>
         </div>

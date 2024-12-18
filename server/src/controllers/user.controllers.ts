@@ -65,6 +65,7 @@ const signupController = async (
   res: Response,
   next: NextFunction
 ): Promise<any> => {
+  console.log("Hitting");
   const validatedData = signupSchema.parse(req.body);
   const { firstName, lastName, email, password, address, phone } =
     validatedData;

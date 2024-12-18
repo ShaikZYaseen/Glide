@@ -23,7 +23,7 @@ app.use("/uploads", express.static(path.join(__dirname, "./src/uploads")));
 
 app.use(cors(corsOptions));
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 8080, () => {
   connectDb();
-  console.log(`Server running on port ${process.env.PORT || 3000}`);
+  console.log(`Server running on port ${process.env.PORT || 8080}`);
 });
