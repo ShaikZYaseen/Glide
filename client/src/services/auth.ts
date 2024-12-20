@@ -20,3 +20,18 @@ export async function Signup(data: signupProps) {
     console.log(error);
   }
 }
+
+interface loginProps {
+  email: string;
+  password: string;
+}
+
+export async function Login(data: loginProps) {
+  try {
+    let url = `${link}/api/v1/auth/login`;
+    const response = await axios.post(url, data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
