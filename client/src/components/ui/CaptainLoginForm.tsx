@@ -112,7 +112,7 @@ export function CaptainLoginForm({
         </LabelInputContainer>
 
         <p className="text-center text-[10px] text-neutral-700 dark:text-neutral-300">
-          Join a fleet?<Link to="/signup"> Register as captain</Link>
+          Join a fleet?<Link to="/captain-signup"> Register as captain</Link>
         </p>
 
         <button
@@ -124,9 +124,9 @@ export function CaptainLoginForm({
 
         <Divider />
 
-        <div className="">
+        <div className="flex justify-center mb-2 mt-4">
           <Link
-            className="mt-4 h-10 w-[500px] text-center rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
+            className="h-10 w-[500px] text-center flex justify-center items-center rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
             to="/login"
           >
             Login as user &rarr;

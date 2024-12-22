@@ -6,6 +6,7 @@ import Upload from "./pages/Upload";
 import { AppProviders } from "./context/AppProviders";
 import CaptainLogin from "./pages/CaptainLogin";
 import CaptainSignup from "./pages/CaptainSignup";
+import CaptainUpload from "./pages/CaptainUpload";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/captain-login" element={<CaptainLogin />} />
         <Route path="/captain-signup" element={<CaptainSignup />} />
+        <Route path="/captain-upload" element={<CaptainUpload />} />
 
         <Route path="/upload" element={<Upload />} />
       </Routes>

@@ -4,7 +4,7 @@ import { useSignup } from "../context/SignupContext";
 import Button from "../components/ui/Button";
 import { Signup } from "../services/auth";
 
-const Upload = () => {
+const CaptainUpload = () => {
   const { signupData, setSignupData } = useSignup();
 
   const handleFileChange = (files: File[]) => {
@@ -50,4 +50,4 @@ const Upload = () => {
   );
 };
 
-export default Upload;
+export default CaptainUpload;

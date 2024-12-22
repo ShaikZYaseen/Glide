@@ -120,9 +120,9 @@ export function LoginForm({ formData, setFormData }: LoginFormProps) {
         </button>
 
         <Divider />
-        <div className="w-full mb-2">
+        <div className="flex justify-center mb-2 mt-4">
           <Link
-            className="mt-4 w-full h-10 text-center rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
+            className="h-10 w-[500px] text-center rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
             to="/captain-login"
           >
             Login as Captain &rarr;

@@ -9,12 +9,14 @@ interface signupProps {
   password: string;
 }
 
-const link = import.meta.env.BACKEND_URL || "http://localhost:8080";
+const link = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 export async function Signup(data: signupProps) {
+  console.log(data, "data");
+
   try {
     let url = `${link}/api/v1/auth/signup`;
-    const response = await axios.post(url, data);
+    const response = await axios.post(url, JSON.stringify(data));
     return response.data;
   } catch (error) {
     console.log(error);
