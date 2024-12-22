@@ -45,3 +45,31 @@ export async function Login(data: loginProps) {
     throw error;
   }
 }
+
+export async function captainLogin(data: loginProps) {
+  try {
+    let url = `${link}/api/v1/captain/login`;
+    const response = await axios.post(url, data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function captainSignup(data: signupProps) {
+  try {
+    let url = `${link}/api/v1/captain/signup`;
+
+    const response = await axios.post(url, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

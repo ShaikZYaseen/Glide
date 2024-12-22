@@ -5,7 +5,7 @@ interface ProtectedRouteProps {
   children?: React.ReactNode;
 }
 
-const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+const CaptainProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
@@ -18,4 +18,4 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   return children ? <>{children}</> : <Outlet />;
 };
 
-export default ProtectedRoute;
+export default CaptainProtectedRoute;

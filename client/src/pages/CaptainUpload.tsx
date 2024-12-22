@@ -1,11 +1,21 @@
 import { FileUpload } from "../components/ui/Upload";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSignup } from "../context/SignupContext";
 import Button from "../components/ui/Button";
-import { Signup } from "../services/auth";
+import { captainSignup, Signup } from "../services/auth";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const CaptainUpload = () => {
   const { signupData, setSignupData } = useSignup();
+  const navigate = useNavigate();
+  const [files, setFiles] = useState<File | null>(null);
+
+  useEffect(() => {
+    if (!signupData.email || !signupData.password) {
+      navigate("/signup");
+    }
+  }, []);
 
   const handleFileChange = (files: File[]) => {
     setSignupData(
@@ -16,10 +26,23 @@ const CaptainUpload = () => {
 
   const handleSubmit = async () => {
     try {
-      console.log(signupData, "OO");
-      const response = await Signup(signupData);
-      console.log(response);
+      const formData = new FormData();
+      formData.append("email", signupData.email);
+      formData.append("password", signupData.password);
+      formData.append("firstName", signupData.firstName);
+      formData.append("lastName", signupData.lastName);
+      formData.append("phone", signupData.phone);
+      if (files) {
+        formData.append("image", files);
+      }
+      //@ts-ignore
+      const response = await captainSignup(formData);
+      if (response.success) {
+        toast.success(response.message); // Trigger success toast
+        navigate(`/captain-login`);
+      }
     } catch (error) {
+      toast.error("An error occurred. Please try after sometime."); // Trigger error toast
       console.log(error);
     }
   };

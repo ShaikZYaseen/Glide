@@ -119,7 +119,7 @@ export function CaptainLoginForm({
           type="submit"
           className="mt-4 w-full h-10 rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
         >
-          Continue &rarr;
+          login
         </button>
 
         <Divider />
