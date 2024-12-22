@@ -3,12 +3,11 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Label } from "./Label";
 import { Input } from "./Input";
-import { cn } from "../../utils/utils";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { Link, useNavigate } from "react-router-dom";
 
 // Props Interface
-interface LoginFormProps {
+interface CaptainLoginFormProps {
   formData: {
     email: string;
     password: string;
@@ -21,10 +20,14 @@ interface LoginFormProps {
   >;
 }
 
-export function LoginForm({ formData, setFormData }: LoginFormProps) {
+export function CaptainLoginForm({
+  formData,
+  setFormData,
+}: CaptainLoginFormProps) {
   const [errors, setErrors] = useState<{ email?: string; password?: string }>(
     {}
   );
+
   const navigate = useNavigate();
 
   // Handle input changes
@@ -74,7 +77,7 @@ export function LoginForm({ formData, setFormData }: LoginFormProps) {
   return (
     <div className="max-w-md w-full mx-auto p-8 bg-white dark:bg-black rounded-md shadow-input">
       <h1 className="text-xl font-bold text-center dark:text-neutral-200">
-        Login
+        Login as captain
       </h1>
 
       <form onSubmit={handleSubmit} className="my-8">
@@ -109,7 +112,7 @@ export function LoginForm({ formData, setFormData }: LoginFormProps) {
         </LabelInputContainer>
 
         <p className="text-center text-[10px] text-neutral-700 dark:text-neutral-300">
-          Don’t have an account? <Link to="/signup">Signup</Link>
+          Join a fleet?<Link to="/signup"> Register as captain</Link>
         </p>
 
         <button
@@ -120,12 +123,13 @@ export function LoginForm({ formData, setFormData }: LoginFormProps) {
         </button>
 
         <Divider />
-        <div className="w-full mb-2">
+
+        <div className="">
           <Link
-            className="mt-4 w-full h-10 text-center rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
-            to="/captain-login"
+            className="mt-4 h-10 w-[500px] text-center rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
+            to="/login"
           >
-            Login as Captain &rarr;
+            Login as user &rarr;
           </Link>
         </div>
 
