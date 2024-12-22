@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { CaptainModel } from "../models/captain.models";
 import { captainLoginSchema, captainSignupSchema } from "../zod/authZod";
 import { uploadImage } from "../utils/cloudinary";
+import bcrypt from "bcrypt";
 
 const captainSignupController = async (
   req: Request,
@@ -95,7 +96,9 @@ const captainLoginController = async (
     });
   }
   try {
-    const user = await CaptainModel.findOne({ email }).exec();
+    const user = await CaptainModel.findOne({ email })
+      .select("+password")
+      .exec();
     if (!user) {
       return res.status(401).json({
         success: false,
