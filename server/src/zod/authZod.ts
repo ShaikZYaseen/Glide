@@ -19,7 +19,8 @@ export const loginSchema = z.object({
 });
 
 export const captainSignupSchema = z.object({
-  username: z.string().min(1, "username is required"),
+  firstName: z.string().min(1, "first name is required"),
+  lastName: z.string().min(1, "last name is required"),
   email: z.string().email("Invalid email address"),
   password: z
     .string()
@@ -28,8 +29,8 @@ export const captainSignupSchema = z.object({
     .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
     .regex(/[0-9]/, "Password must contain at least one number"),
   color: z.string().min(1, "Please enter a valid color"),
-  plate: z.number().min(1, "Please enter a valid plate number"),
-  capacity: z.number().min(1, "Please enter a valid capacity"),
+  plate: z.string().min(1, "Please enter a valid plate number"),
+  capacity: z.string().min(1, "Please enter a valid capacity"),
   vehicleType: z.enum(["car", "motorcycle", "auto"]),
 });
 

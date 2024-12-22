@@ -5,6 +5,8 @@ import { Label } from "./Label";
 import { Input } from "./Input";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { Link, useNavigate } from "react-router-dom";
+import { captainLogin } from "../../services/auth";
+import toast, { Toaster } from "react-hot-toast";
 
 // Props Interface
 interface CaptainLoginFormProps {
@@ -30,14 +32,11 @@ export function CaptainLoginForm({
 
   const navigate = useNavigate();
 
-  // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
 
-    // Update form data
     setFormData((prev) => ({ ...prev, [id]: value }));
 
-    // Clear error messages when user starts typing
     setErrors((prevErrors) => ({ ...prevErrors, [id]: "" }));
   };
 
@@ -61,7 +60,7 @@ export function CaptainLoginForm({
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const validationErrors = validate();
@@ -71,11 +70,18 @@ export function CaptainLoginForm({
       return;
     }
 
-    console.log("Form submitted successfully:", formData);
+    const response = await captainLogin(formData);
+    if (response.success) {
+      toast.success(response.message);
+      setTimeout(() => navigate("/dashboard"), 1000);
+    } else {
+      toast.error(response.message);
+    }
   };
 
   return (
     <div className="max-w-md w-full mx-auto p-8 bg-white dark:bg-black rounded-md shadow-input">
+      <Toaster />
       <h1 className="text-xl font-bold text-center dark:text-neutral-200">
         Login as captain
       </h1>

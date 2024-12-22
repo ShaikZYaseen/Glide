@@ -1,10 +1,7 @@
-"use client";
-
 import React, { useState, Dispatch, SetStateAction } from "react";
 import { Label } from "./Label";
 import { Input } from "./Input";
 import { cn } from "../../utils/utils";
-import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { useSignup } from "../../context/SignupContext";
 import { Link, useNavigate } from "react-router-dom";
 

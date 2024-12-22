@@ -9,10 +9,14 @@ const CaptainSignup = () => {
     email: "",
     image: "",
     password: "",
+    capacity: "",
+    vehicleType: "",
+    color: "",
+    plate: "",
   });
 
   return (
-    <div className="w-full flex flex-col  justify-center items-center  bg-black">
+    <div className="w-full min-h-screen flex flex-col  justify-center items-center  bg-black">
       <CaptainSignupForm formData={formData} setFormData={setFormData} />
     </div>
   );

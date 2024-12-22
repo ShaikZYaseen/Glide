@@ -1,13 +1,13 @@
 import { FileUpload } from "../components/ui/Upload";
 import { Link, useNavigate } from "react-router-dom";
-import { useSignup } from "../context/SignupContext";
 import Button from "../components/ui/Button";
-import { captainSignup, Signup } from "../services/auth";
+import { captainSignup } from "../services/auth";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+import { useCaptainSignup } from "../context/CaptainSignupContext";
 
 const CaptainUpload = () => {
-  const { signupData, setSignupData } = useSignup();
+  const { signupData } = useCaptainSignup();
   const navigate = useNavigate();
   const [files, setFiles] = useState<File | null>(null);
 
@@ -18,10 +18,9 @@ const CaptainUpload = () => {
   }, []);
 
   const handleFileChange = (files: File[]) => {
-    setSignupData(
-      { image: files[0] } // Store the first file in the photo field
-    );
-    console.log("Hitting", signupData);
+    if (files.length > 0) {
+      setFiles(files[0]); // Add the first file to formData
+    }
   };
 
   const handleSubmit = async () => {
@@ -32,6 +31,10 @@ const CaptainUpload = () => {
       formData.append("firstName", signupData.firstName);
       formData.append("lastName", signupData.lastName);
       formData.append("phone", signupData.phone);
+      formData.append("color", signupData.color);
+      formData.append("plate", signupData.plate || "");
+      formData.append("vehicleType", signupData.vehicleType);
+      formData.append("capacity", signupData.capacity || "");
       if (files) {
         formData.append("image", files);
       }
@@ -39,7 +42,9 @@ const CaptainUpload = () => {
       const response = await captainSignup(formData);
       if (response.success) {
         toast.success(response.message); // Trigger success toast
-        navigate(`/captain-login`);
+        setTimeout(() => {
+          navigate(`/captain-login`);
+        }, 1000);
       }
     } catch (error) {
       toast.error("An error occurred. Please try after sometime."); // Trigger error toast
@@ -49,6 +54,7 @@ const CaptainUpload = () => {
 
   return (
     <div className="w-full h-screen flex items-center justify-center bg-black">
+      <Toaster />
       <Link
         className="absolute top-5 px-3 overflow-x-hidden w-full  text-white text-[30px] font-bold font-sans"
         to="/"

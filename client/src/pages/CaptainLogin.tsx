@@ -8,7 +8,7 @@ const CaptainLogin = () => {
   });
 
   return (
-    <div className="w-full h-screen flex justify-center items-center bg-black">
+    <div className="w-full min-h-screen flex justify-center items-center bg-black">
       <CaptainLoginForm formData={formData} setFormData={setFormData} />
     </div>
   );

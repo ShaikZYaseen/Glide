@@ -6,30 +6,40 @@ interface CaptainSignupData {
   email: string;
   phone: string;
   password: string;
+  color: string;
+  plate: string | null;
+  capacity: string | null;
+  vehicleType: string;
   image?: any;
 }
 
 interface SignupContextType {
-  signupData: SignupData;
-  setSignupData: (data: Partial<SignupData>) => void;
+  signupData: CaptainSignupData;
+  setSignupData: (data: Partial<CaptainSignupData>) => void;
   clearSignupData: () => void;
 }
 
-const SignupContext = createContext<SignupContextType | undefined>(undefined);
+const CaptainSignupContext = createContext<SignupContextType | undefined>(
+  undefined
+);
 
-export const SignupProvider: React.FC<{ children: ReactNode }> = ({
+export const CaptainSignupProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [signupData, setSignupDataState] = useState<SignupData>({
+  const [signupData, setSignupDataState] = useState<CaptainSignupData>({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
     password: "",
-    image: null,
+    color: "",
+    plate: "",
+    vehicleType: "",
+    capacity: "",
+    image: "",
   });
 
-  const setSignupData = (data: Partial<SignupData>) => {
+  const setSignupData = (data: Partial<CaptainSignupData>) => {
     setSignupDataState((prev) => ({ ...prev, ...data }));
   };
 
@@ -39,22 +49,26 @@ export const SignupProvider: React.FC<{ children: ReactNode }> = ({
       lastName: "",
       email: "",
       phone: "",
+      color: "",
+      vehicleType: "",
+      plate: "",
+      capacity: "",
       password: "",
-      image: null,
+      image: "",
     });
   };
 
   return (
-    <SignupContext.Provider
+    <CaptainSignupContext.Provider
       value={{ signupData, setSignupData, clearSignupData }}
     >
       {children}
-    </SignupContext.Provider>
+    </CaptainSignupContext.Provider>
   );
 };
 
-export const useSignup = (): SignupContextType => {
-  const context = useContext(SignupContext);
+export const useCaptainSignup = (): SignupContextType => {
+  const context = useContext(CaptainSignupContext);
   if (!context) {
     throw new Error("useSignup must be used within a SignupProvider");
   }

@@ -6,6 +6,8 @@ import { Input } from "./Input";
 import { cn } from "../../utils/utils";
 import { useSignup } from "../../context/SignupContext";
 import { Link, useNavigate } from "react-router-dom";
+import { useCaptainSignup } from "../../context/CaptainSignupContext";
+import { color } from "framer-motion";
 
 // Define props for SignupFormDemo
 interface CaptainSignupFormDemoProps {
@@ -15,6 +17,10 @@ interface CaptainSignupFormDemoProps {
     email: string;
     phone: string;
     password: string;
+    capacity: string;
+    vehicleType: string;
+    color: string;
+    plate: string;
   };
   setFormData: Dispatch<
     SetStateAction<{
@@ -23,6 +29,10 @@ interface CaptainSignupFormDemoProps {
       email: string;
       phone: string;
       password: string;
+      capacity: string;
+      vehicleType: string;
+      color: string;
+      plate: string;
     }>
   >;
 }
@@ -31,7 +41,6 @@ export function CaptainSignupForm({
   formData,
   setFormData,
 }: CaptainSignupFormDemoProps) {
-  const { setSignupData } = useSignup();
   const navigate = useNavigate();
 
   // Error state for form validation
@@ -41,7 +50,13 @@ export function CaptainSignupForm({
     email: "",
     phone: "",
     password: "",
+    capacity: "",
+    vehicleType: "",
+    color: "",
+    plate: "",
   });
+
+  const { setSignupData } = useCaptainSignup();
 
   // Validation function
   const validateInputs = () => {
@@ -51,6 +66,10 @@ export function CaptainSignupForm({
       email: "",
       phone: "",
       password: "",
+      capacity: "",
+      vehicleType: "",
+      color: "",
+      plate: "",
     };
     let isValid = true;
 
@@ -98,9 +117,11 @@ export function CaptainSignupForm({
     e.preventDefault();
     if (validateInputs()) {
       setSignupData(formData);
-      navigate("/upload");
+      navigate("/captain-upload");
     }
   };
+
+  const vehicleTypes = ["auto", "car", "motorcycle"];
 
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
@@ -176,6 +197,75 @@ export function CaptainSignupForm({
             <span className="text-red-500 text-sm">{errors.password}</span>
           )}
         </LabelInputContainer>
+        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
+          <LabelInputContainer>
+            <Label htmlFor="firstName">Colour of vehicle</Label>
+            <Input
+              id="color"
+              placeholder="Enter colour of vehicle"
+              type="text"
+              value={formData.color}
+              onChange={handleInputChange}
+            />
+            {errors.firstName && (
+              <span className="text-red-500 text-sm">{errors.firstName}</span>
+            )}
+          </LabelInputContainer>
+          <LabelInputContainer>
+            <Label htmlFor="lastName">Vehicle no</Label>
+            <Input
+              id="plate"
+              placeholder="Enter the plate number"
+              type="text"
+              value={formData.plate}
+              onChange={handleInputChange}
+            />
+            {errors.lastName && (
+              <span className="text-red-500 text-sm">{errors.lastName}</span>
+            )}
+          </LabelInputContainer>
+        </div>
+        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
+          <LabelInputContainer>
+            <Label htmlFor="firstName">Capacity</Label>
+            <Input
+              id="capacity"
+              placeholder="Enter vehicle capacity "
+              type="text"
+              value={formData.capacity}
+              onChange={handleInputChange}
+            />
+            {errors.firstName && (
+              <span className="text-red-500 text-sm">{errors.capacity}</span>
+            )}
+          </LabelInputContainer>
+          <LabelInputContainer>
+            <Label htmlFor="vehicleType">Vehicle Type</Label>
+            <select
+              id="vehicleType"
+              value={formData.vehicleType}
+              onChange={(e) => {
+                setFormData((prevData) => ({
+                  ...prevData,
+                  vehicleType: e.target.value,
+                }));
+              }}
+              className="p-2 border border-gray-100  bg-black text-white rounded-md w-full"
+            >
+              <option className="rounded-xl" value="">
+                Select vehicle type
+              </option>
+              {vehicleTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </option>
+              ))}
+            </select>
+            {errors.vehicleType && (
+              <span className="text-red-500 text-sm">{errors.vehicleType}</span>
+            )}
+          </LabelInputContainer>
+        </div>
         <p className="text-white text-[12px] mb-5 ml-2 text-center">
           Already have an account? <Link to="/captain-login">login</Link>{" "}
         </p>
@@ -183,7 +273,7 @@ export function CaptainSignupForm({
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium"
           type="submit"
         >
-          submit
+          Continue
         </button>
         <div className="flex justify-center mb-2 mt-4">
           <Link

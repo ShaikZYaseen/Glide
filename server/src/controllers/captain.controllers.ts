@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { CaptainModel } from "../models/captain.models";
 import { captainLoginSchema, captainSignupSchema } from "../zod/authZod";
+import { uploadImage } from "../utils/cloudinary";
 
 const captainSignupController = async (
   req: Request,
@@ -8,10 +9,19 @@ const captainSignupController = async (
   next: NextFunction
 ): Promise<any> => {
   const validatedData = captainSignupSchema.parse(req.body);
-  const { username, email, password, color, plate, capacity, vehicleType } =
-    validatedData;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    color,
+    plate,
+    capacity,
+    vehicleType,
+  } = validatedData;
   if (
-    !username ||
+    !firstName ||
+    !lastName ||
     !email ||
     !password ||
     !color ||
@@ -19,7 +29,7 @@ const captainSignupController = async (
     !capacity ||
     !vehicleType
   ) {
-    return res.status(400).json({
+    return res.status(200).json({
       success: false,
       message: "Please fill all the necessary details.",
     });
@@ -27,7 +37,7 @@ const captainSignupController = async (
   try {
     const userExists = await CaptainModel.findOne({ email }).exec();
     if (userExists) {
-      return res.status(400).json({
+      return res.status(200).json({
         success: false,
         message: "Email already exists.",
       });
@@ -36,13 +46,17 @@ const captainSignupController = async (
     //@ts-ignore
     const image = await uploadImage(req.file.path);
     const newUser = new CaptainModel({
-      username,
+      firstName,
+      lastName,
       email,
       password,
       image,
-      color,
-      plate,
-      capacity,
+      vehicle: {
+        color,
+        plate,
+        capacity,
+        vehicleType,
+      },
     });
 
     const user = await newUser.save();
@@ -51,7 +65,7 @@ const captainSignupController = async (
 
     res.setHeader("Authorization", `Bearer ${token}`);
 
-    return res.status(201).json({
+    return res.status(200).json({
       success: true,
       message: "Captain registered successfully",
       token,
@@ -85,10 +99,9 @@ const captainLoginController = async (
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: "Invalid credentials.",
+        message: "No user found with email",
       });
     }
-
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return res.status(401).json({

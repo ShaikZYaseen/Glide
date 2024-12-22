@@ -4,7 +4,8 @@ import bcrypt from "bcrypt";
 
 // Define an interface for the Captain document
 export interface ICaptain extends Document {
-  username: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   socketId?: string;
@@ -25,7 +26,12 @@ export interface ICaptain extends Document {
 
 // Define the schema
 const captainSchema = new Schema<ICaptain>({
-  username: {
+  firstName: {
+    type: String,
+    required: true,
+    minlength: 3,
+  },
+  lastName: {
     type: String,
     required: true,
     minlength: 3,
