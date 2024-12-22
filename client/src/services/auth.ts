@@ -5,7 +5,7 @@ interface signupProps {
   lastName: string;
   phone: string;
   email: string;
-  image?: string;
+  image?: File; // Image will now be a File object, not a string
   password: string;
 }
 
@@ -16,10 +16,17 @@ export async function Signup(data: signupProps) {
 
   try {
     let url = `${link}/api/v1/auth/signup`;
-    const response = await axios.post(url, JSON.stringify(data));
+
+    const response = await axios.post(url, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
     return response.data;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }
 
@@ -35,5 +42,6 @@ export async function Login(data: loginProps) {
     return response.data;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }

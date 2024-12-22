@@ -34,7 +34,7 @@ export const FileUpload = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (newFiles: File[]) => {
-    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+    setFiles(newFiles); // Replace the previous files with the new ones
     if (onChange) {
       onChange(newFiles); // Pass the new files to the parent component
     }

@@ -14,6 +14,7 @@ cloudinary.config({
 export const uploadImage = async (filePath: string): Promise<string> => {
   try {
     // Upload the image
+    console.log(filePath);
     const result = await cloudinary.v2.uploader.upload(filePath);
     fs.unlink(filePath, (err) => {
       if (err) {

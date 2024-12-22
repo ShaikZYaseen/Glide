@@ -11,17 +11,18 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const corsOptions = {
-  origin: "*",
-  credentials: true,
-};
+app.use(
+  cors({
+    origin: "http://localhost:5173", // The frontend's URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use("/api/v1/auth", userRouter);
 app.use("/api/v1/captain", captainRouter);
 
 app.use("/uploads", express.static(path.join(__dirname, "./src/uploads")));
-
-app.use(cors(corsOptions));
 
 app.listen(process.env.PORT || 8080, () => {
   connectDb();

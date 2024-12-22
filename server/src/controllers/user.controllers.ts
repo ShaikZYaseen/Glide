@@ -65,9 +65,9 @@ const signupController = async (
   res: Response,
   next: NextFunction
 ): Promise<any> => {
-  const validatedData = signupSchema.parse(JSON.parse(req.body));
-  const { firstName, lastName, email, password, address, phone } =
-    validatedData;
+  console.log(req.body, "OOOOOo");
+  const validatedData = signupSchema.parse(req.body);
+  const { firstName, lastName, email, password, phone } = validatedData;
 
   if (!firstName || !lastName || !email || !password) {
     return res.status(400).json({
@@ -84,6 +84,7 @@ const signupController = async (
         message: "Email already exists.",
       });
     }
+    console.log(req.file?.path);
 
     //@ts-ignore
     const image = await uploadImage(req.file.path);
@@ -93,7 +94,6 @@ const signupController = async (
       email,
       password,
       image,
-      address,
       phone,
     });
 
@@ -103,7 +103,7 @@ const signupController = async (
 
     res.setHeader("Authorization", `Bearer ${token}`);
 
-    return res.status(201).json({
+    return res.status(200).json({
       success: true,
       message: "User registered successfully",
       token,
