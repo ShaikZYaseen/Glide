@@ -3,9 +3,10 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Label } from "./Label";
 import { Input } from "./Input";
-import { cn } from "../../utils/utils";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { Link, useNavigate } from "react-router-dom";
+import { Login } from "../../services/auth";
+import { Toaster, toast } from "react-hot-toast";
 
 // Props Interface
 interface LoginFormProps {
@@ -58,7 +59,7 @@ export function LoginForm({ formData, setFormData }: LoginFormProps) {
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const validationErrors = validate();
@@ -68,11 +69,22 @@ export function LoginForm({ formData, setFormData }: LoginFormProps) {
       return;
     }
 
-    console.log("Form submitted successfully:", formData);
+    const response = await Login(formData);
+    if (response.token) {
+      localStorage.setItem("token", response.token); // Save token to localStorage
+    }
+
+    if (response.success) {
+      toast.success(response.message);
+      setTimeout(() => navigate("/dashboard"), 1000);
+    } else {
+      toast.error(response.message);
+    }
   };
 
   return (
     <div className="max-w-md w-full mx-auto p-8 bg-white dark:bg-black rounded-md shadow-input">
+      <Toaster />
       <h1 className="text-xl font-bold text-center dark:text-neutral-200">
         Login
       </h1>
@@ -116,7 +128,7 @@ export function LoginForm({ formData, setFormData }: LoginFormProps) {
           type="submit"
           className="mt-4 w-full h-10 rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
         >
-          Continue &rarr;
+          login
         </button>
 
         <Divider />

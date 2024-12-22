@@ -15,7 +15,7 @@ const Upload = () => {
     if (!signupData.email || !signupData.password) {
       navigate("/signup");
     }
-  }, [signupData, navigate]); // Add dependencies
+  }, []);
 
   // Initialize formData outside of the function so it persists
   const handleFileChange = (files: File[]) => {
@@ -35,10 +35,11 @@ const Upload = () => {
       if (files) {
         formData.append("image", files);
       }
-
+      //@ts-ignore
       const response = await Signup(formData);
       if (response.success) {
         toast.success(response.message); // Trigger success toast
+        navigate(`/login`);
       }
     } catch (error) {
       toast.error("An error occurred. Please try again."); // Trigger error toast
