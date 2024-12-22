@@ -134,7 +134,7 @@ export function LoginForm({ formData, setFormData }: LoginFormProps) {
         <Divider />
         <div className="flex justify-center mb-2 mt-4">
           <Link
-            className="h-10 w-[500px] text-center rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
+            className="h-10 w-[500px] text-center flex justify-center items-center rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
             to="/captain-login"
           >
             Login as Captain &rarr;

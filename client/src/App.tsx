@@ -8,6 +8,7 @@ import CaptainLogin from "./pages/CaptainLogin";
 import CaptainSignup from "./pages/CaptainSignup";
 import CaptainUpload from "./pages/CaptainUpload";
 import Home from "./pages/Home";
+import ProtectedRoute from "./utils/Protected";
 
 function App() {
   return (
@@ -19,7 +20,14 @@ function App() {
         <Route path="/captain-login" element={<CaptainLogin />} />
         <Route path="/captain-signup" element={<CaptainSignup />} />
         <Route path="/captain-upload" element={<CaptainUpload />} />
-        <Route path="/dashboard" element={<Home />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        ></Route>
 
         <Route path="/upload" element={<Upload />} />
       </Routes>

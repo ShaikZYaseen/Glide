@@ -187,7 +187,7 @@ export function CaptainSignupForm({
         </button>
         <div className="flex justify-center mb-2 mt-4">
           <Link
-            className="h-10 w-[500px] text-center rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
+            className="h-10 w-[500px] text-center flex items-center justify-center rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
             to="/signup"
           >
             Signup as user &rarr;

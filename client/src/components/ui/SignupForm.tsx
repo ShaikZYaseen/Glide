@@ -185,7 +185,7 @@ export function SignupFormDemo({ formData, setFormData }: SignupFormDemoProps) {
         </button>
         <div className="flex justify-center mb-2 mt-4">
           <Link
-            className="h-10 w-[500px] text-center rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
+            className="h-10 w-[500px] flex items-center justify-center text-center rounded-md bg-gradient-to-br from-black to-neutral-600 text-white font-medium hover:opacity-90"
             to="/captain-signup"
           >
             Signup as Captain &rarr;
