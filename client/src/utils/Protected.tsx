@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     if (!token) {
       navigate("/login");
     }
-  }, [token]);
+  }, []);
 
   return children ? <>{children}</> : <Outlet />;
 };
