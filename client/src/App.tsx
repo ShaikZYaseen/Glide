@@ -10,6 +10,7 @@ import CaptainUpload from "./pages/CaptainUpload";
 import Home from "./pages/Home";
 import ProtectedRoute from "./utils/Protected";
 import Ride from "./pages/Ride";
+import RideConfirm from "./pages/RideConfirm";
 
 function App() {
   return (
@@ -34,6 +35,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Ride />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/confirm-ride"
+          element={
+            <ProtectedRoute>
+              <RideConfirm />
             </ProtectedRoute>
           }
         ></Route>
