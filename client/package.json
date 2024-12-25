@@ -10,6 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@heroicons/react": "^2.2.0",
+    "@mui/icons-material": "^6.3.0",
+    "@mui/material": "^6.3.0",
+    "@mui/styled-engine-sc": "^6.3.0",
     "@radix-ui/react-label": "^2.1.0",
     "@tabler/icons-react": "^3.24.0",
     "@tsparticles/engine": "^3.7.1",
@@ -19,6 +27,7 @@
     "clsx": "^2.1.1",
     "cobe": "^0.6.3",
     "dotted-map": "^2.2.3",
+    "font-awesome": "^4.7.0",
     "framer-motion": "^11.14.4",
     "gsap": "^3.12.5",
     "motion": "^11.13.1",

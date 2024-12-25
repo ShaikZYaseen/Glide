@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import LocationPanel from "./LocationPanel";
 import { Label } from "./Label";
 import { Input } from "./Input";
 import { gsap } from "gsap";
@@ -31,13 +32,13 @@ const HomePage = () => {
         <div className="w-full h-full object-contain">
           <img
             className="w-full h-full object-cover"
-            src="https://media.gettyimages.com/id/1268054405/vector/route-planning-city-driving-road-network-destination-map.jpg?s=612x612&w=0&k=20&c=fFAXAL-udAnyNMc03hDYeVl3fg7LJyGu3XG-6xPi58o="
+            src="https://miro.medium.com/v2/resize:fit:1100/format:webp/0*gwMx05pqII5hbfmX.gif"
             alt=""
           />
         </div>
       )}
 
-      {div && <div className="w-full h-screen z-100 bg-zinc-800"></div>}
+      {div && <LocationPanel />}
       <div
         ref={containerRef}
         className="h-45 w-full bg-black p-4 absolute bottom-0 flex justify-center items-center text-sm"
