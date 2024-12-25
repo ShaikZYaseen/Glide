@@ -20,7 +20,7 @@ const RideConfirmComponent = () => {
       if (isExpanded) {
         gsap.to(containerRef.current, {
           duration: 0.5,
-          height: "470px",
+          height: "510px",
           opacity: 1,
           ease: "power2.out",
         });
@@ -36,7 +36,7 @@ const RideConfirmComponent = () => {
   }, [isExpanded]);
 
   return (
-    <div className="w-full bg-black h-full relative">
+    <div className="w-full bg-black h-screen relative overflow-hidden">
       <span className="w-full h-full">
         <LocationMap />
       </span>
@@ -46,7 +46,9 @@ const RideConfirmComponent = () => {
         style={{ zIndex: 1000 }}
         className="absolute bottom-0 w-full flex justify-center items-center z-50 cursor-pointer bg-black text-white py-2"
       >
-        <p className="text-white text-xl mr-2 font-bold">Confirm your ride</p>
+        <p className="text-white text-xl p-2 mr-2 font-bold">
+          Confirm your ride
+        </p>
         {isExpanded ? (
           <ExpandLess fontSize="large" className="text-white" />
         ) : (
@@ -56,7 +58,7 @@ const RideConfirmComponent = () => {
 
       <div
         ref={containerRef}
-        className="absolute  w-full flex flex-col bg-black items-center justify-center z-50 cursor-pointer  h-full text-white px-10 overflow-hidden transition-all duration-500 ease-in-out"
+        className="absolute bottom-0  w-full flex flex-col bg-black items-center justify-center z-50 cursor-pointer  h-full text-white px-10 overflow-hidden transition-all duration-500 ease-in-out"
       >
         <div className="w-full h-full flex flex-col bg-black justify-center items-center">
           <img

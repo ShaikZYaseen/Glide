@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import ProtectedRoute from "./utils/Protected";
 import Ride from "./pages/Ride";
 import RideConfirm from "./pages/RideConfirm";
+import ConfirmDriver from "./pages/ConfirmDriver";
 
 function App() {
   return (
@@ -43,6 +44,15 @@ function App() {
           element={
             <ProtectedRoute>
               <RideConfirm />
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route
+          path="/confirm-driver"
+          element={
+            <ProtectedRoute>
+              <ConfirmDriver />
             </ProtectedRoute>
           }
         ></Route>
