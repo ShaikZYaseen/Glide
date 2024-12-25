@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import LocationPanel from "./LocationPanel";
-import { Label } from "./Label";
 import { Input } from "./Input";
 import { gsap } from "gsap";
+import LocationMap from "./LocationMap";
 
 const HomePage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -28,15 +28,7 @@ const HomePage = () => {
 
   return (
     <div className="w-full h-screen bg-black  justify-center items-center flex flex-col relative">
-      {!div && (
-        <div className="w-full h-full object-contain">
-          <img
-            className="w-full h-full object-cover"
-            src="https://miro.medium.com/v2/resize:fit:1100/format:webp/0*gwMx05pqII5hbfmX.gif"
-            alt=""
-          />
-        </div>
-      )}
+      {!div && <LocationMap />}
 
       {div && <LocationPanel />}
       <div
