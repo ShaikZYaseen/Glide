@@ -5,7 +5,12 @@ import BoyIcon from "@mui/icons-material/Boy";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
 
-const Ride = () => {
+interface propType {
+  setConfirmRide: React.Dispatch<React.SetStateAction<boolean>>;
+  setHome: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Ride = ({ setConfirmRide, setHome }: propType) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
@@ -62,7 +67,13 @@ const Ride = () => {
         ref={contentRef}
         className="h-0 w-full absolute p-5 bottom-0 px-[400px] bg-black text-black font-bold z-50 transition-all duration-500 ease-in-out overflow-hidden"
       >
-        <Link to="/#">
+        <Link
+          onClick={() => {
+            setHome(false);
+            setConfirmRide(true);
+          }}
+          to="/#"
+        >
           <p className="h-[100px] bg-white flex border rounded-md border-black shadow-xl items-center  justify-around ">
             <img
               className="h-[120px] w-[120px] object-contain"
@@ -82,7 +93,13 @@ const Ride = () => {
             <span className="p-3">₹ 573 /-</span>
           </p>
         </Link>
-        <Link to="/#">
+        <Link
+          onClick={() => {
+            setHome(false);
+            setConfirmRide(true);
+          }}
+          to="/#"
+        >
           <p className="h-[100px] bg-white  border rounded-md border-black shadow-xl flex items-center justify-around">
             <img
               className="h-[120px] w-[120px] object-contain p-2"
@@ -103,7 +120,13 @@ const Ride = () => {
           </p>
         </Link>
 
-        <Link to="#">
+        <Link
+          onClick={() => {
+            setHome(false);
+            setConfirmRide(true);
+          }}
+          to="#"
+        >
           <p className="h-[100px] bg-white border rounded-md border-black shadow-xl   flex items-center  justify-around">
             <img
               className="h-[80px] w-[80px] object-contain p-2"

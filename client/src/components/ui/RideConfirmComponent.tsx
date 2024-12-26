@@ -87,8 +87,8 @@ const RideConfirmComponent = () => {
           </p>
 
           <p className="text-black h-[60px] bg-white flex mt-3  border border-white w-1/3 p-2 pr-[70px] rounded-md items-center justify-center ">
-            <div className="p-2">
-              <CurrencyRupeeIcon />
+            <div className="p-1 text-[20px]">
+              <CurrencyRupeeIcon className="w-full h-full" />
             </div>
             <div className="flex flex-col   ">
               <span>193.20</span>
