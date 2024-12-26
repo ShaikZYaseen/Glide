@@ -6,8 +6,8 @@ import DriverLoading from "../components/ui/DriverLoading";
 import DriverConfirm from "../components/ui/DriverConfirm";
 
 const Home = () => {
-  const [home, setHome] = useState(true);
-  const [rideType, setRideType] = useState(false);
+  const [home, setHome] = useState(false);
+  const [rideType, setRideType] = useState(true);
   const [confirmRide, setConfirmRide] = useState(false);
   const [confirmDriver, setConfirmDriver] = useState(false);
   const [driverLoading, setDriverLoading] = useState(false);

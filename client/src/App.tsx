@@ -9,9 +9,6 @@ import CaptainSignup from "./pages/CaptainSignup";
 import CaptainUpload from "./pages/CaptainUpload";
 import Home from "./pages/Home";
 import ProtectedRoute from "./utils/Protected";
-import Ride from "./pages/Ride";
-import RideConfirm from "./pages/RideConfirm";
-import ConfirmDriver from "./pages/ConfirmDriver";
 
 function App() {
   return (
