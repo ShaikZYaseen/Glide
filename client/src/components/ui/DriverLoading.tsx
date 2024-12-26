@@ -6,7 +6,12 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { gsap } from "gsap";
 
-const DriverConfirmation = () => {
+interface propType {
+  setConfirmDriver: React.Dispatch<React.SetStateAction<boolean>>;
+  setDriverLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const DriverLoading = ({ setDriverLoading, setConfirmDriver }: propType) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -33,6 +38,11 @@ const DriverConfirmation = () => {
       }
     }
   }, [isExpanded]);
+
+  setTimeout(() => {
+    setDriverLoading(false);
+    setConfirmDriver(true);
+  }, 2000);
 
   return (
     <div className="w-full bg-black h-screen relative overflow-hidden">
@@ -102,4 +112,4 @@ const DriverConfirmation = () => {
   );
 };
 
-export default DriverConfirmation;
+export default DriverLoading;

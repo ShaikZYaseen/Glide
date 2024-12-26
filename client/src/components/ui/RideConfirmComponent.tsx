@@ -6,7 +6,15 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { gsap } from "gsap";
 
-const RideConfirmComponent = () => {
+interface propType {
+  setConfirmRide: React.Dispatch<React.SetStateAction<boolean>>;
+  setDriverLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const RideConfirmComponent = ({
+  setDriverLoading,
+  setConfirmRide,
+}: propType) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -97,7 +105,13 @@ const RideConfirmComponent = () => {
           </p>
 
           <div className="overflow-hidden">
-            <button className="bg-green-500 w-[200px] p-2 rounded-md text-white font-bold mt-4">
+            <button
+              onClick={() => {
+                setDriverLoading(true);
+                setConfirmRide(false);
+              }}
+              className="bg-green-500 w-[200px] p-2 rounded-md text-white font-bold mt-4"
+            >
               Confirm
             </button>
           </div>

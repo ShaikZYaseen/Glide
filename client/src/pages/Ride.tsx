@@ -7,10 +7,10 @@ import { Link } from "react-router-dom";
 
 interface propType {
   setConfirmRide: React.Dispatch<React.SetStateAction<boolean>>;
-  setHome: React.Dispatch<React.SetStateAction<boolean>>;
+  setRideType: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Ride = ({ setConfirmRide, setHome }: propType) => {
+const Ride = ({ setConfirmRide, setRideType }: propType) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
@@ -69,7 +69,7 @@ const Ride = ({ setConfirmRide, setHome }: propType) => {
       >
         <Link
           onClick={() => {
-            setHome(false);
+            setRideType(false);
             setConfirmRide(true);
           }}
           to="/#"
@@ -95,7 +95,7 @@ const Ride = ({ setConfirmRide, setHome }: propType) => {
         </Link>
         <Link
           onClick={() => {
-            setHome(false);
+            setRideType(false);
             setConfirmRide(true);
           }}
           to="/#"
@@ -122,7 +122,7 @@ const Ride = ({ setConfirmRide, setHome }: propType) => {
 
         <Link
           onClick={() => {
-            setHome(false);
+            setRideType(false);
             setConfirmRide(true);
           }}
           to="#"

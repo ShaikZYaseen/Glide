@@ -31,31 +31,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-        <Route
-          path="/ride"
-          element={
-            <ProtectedRoute>
-              <Ride />
-            </ProtectedRoute>
-          }
-        ></Route>
-        <Route
-          path="/confirm-ride"
-          element={
-            <ProtectedRoute>
-              <RideConfirm />
-            </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/confirm-driver"
-          element={
-            <ProtectedRoute>
-              <ConfirmDriver />
-            </ProtectedRoute>
-          }
-        ></Route>
 
         <Route path="/upload" element={<Upload />} />
       </Routes>

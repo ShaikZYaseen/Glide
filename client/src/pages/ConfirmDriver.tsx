@@ -1,4 +1,4 @@
-import DriverConfirmation from "../components/ui/DriverConfirmation";
+import DriverConfirmation from "../components/ui/DriverLoading";
 
 const ConfirmDriver = () => {
   return (
