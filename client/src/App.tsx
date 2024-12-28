@@ -1,46 +1,55 @@
+import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
-import Hero from "./pages/Hero";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-import Upload from "./pages/Upload";
 import { AppProviders } from "./context/AppProviders";
-import CaptainLogin from "./pages/CaptainLogin";
-import CaptainSignup from "./pages/CaptainSignup";
-import CaptainUpload from "./pages/CaptainUpload";
-import Home from "./pages/Home";
 import ProtectedRoute from "./utils/Protected";
-import CaptainHome from "./pages/CaptainHome";
+
+// Lazy load components
+const Hero = lazy(() => import("./pages/Hero"));
+const Signup = lazy(() => import("./pages/Signup"));
+const Login = lazy(() => import("./pages/Login"));
+const Upload = lazy(() => import("./pages/Upload"));
+const CaptainLogin = lazy(() => import("./pages/CaptainLogin"));
+const CaptainSignup = lazy(() => import("./pages/CaptainSignup"));
+const CaptainUpload = lazy(() => import("./pages/CaptainUpload"));
+const Home = lazy(() => import("./pages/Home"));
+const CaptainHome = lazy(() => import("./pages/CaptainHome"));
 
 function App() {
   return (
     <AppProviders>
-      <Routes>
-        <Route path="/" element={<Hero />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/captain-login" element={<CaptainLogin />} />
-        <Route path="/captain-signup" element={<CaptainSignup />} />
-        <Route path="/captain-upload" element={<CaptainUpload />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/captain-dashboard"
-          element={
-            <ProtectedRoute>
-              <CaptainHome />
-            </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route path="/upload" element={<Upload />} />
-      </Routes>
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center h-screen">
+            <div className="w-8 h-8 border-4 border-black-500 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        }
+      >
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/captain-login" element={<CaptainLogin />} />
+          <Route path="/captain-signup" element={<CaptainSignup />} />
+          <Route path="/captain-upload" element={<CaptainUpload />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/captain-dashboard"
+            element={
+              <ProtectedRoute>
+                <CaptainHome />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/upload" element={<Upload />} />
+        </Routes>
+      </Suspense>
     </AppProviders>
   );
 }
