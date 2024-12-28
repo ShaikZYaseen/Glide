@@ -72,8 +72,10 @@ export function CaptainLoginForm({
 
     const response = await captainLogin(formData);
     if (response.success) {
+      localStorage.setItem("token", response.token);
       toast.success(response.message);
-      setTimeout(() => navigate("/dashboard"), 1000);
+
+      setTimeout(() => navigate("/captain-dashboard"), 1000);
     } else {
       toast.error(response.message);
     }
