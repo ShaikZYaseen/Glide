@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getHeaders } from "../utils/GetHeaders";
 
 interface signupProps {
   firstName: string;
@@ -66,6 +67,44 @@ export async function captainSignup(data: signupProps) {
         "Content-Type": "multipart/form-data",
       },
     });
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function captainLogout() {
+  try {
+    let url = `${link}/api/v1/captain/logout`;
+
+    const response = await axios.post(
+      url,
+      {},
+      {
+        headers: getHeaders(),
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function userLogout() {
+  try {
+    let url = `${link}/api/v1/auth/logout`;
+
+    const response = await axios.post(
+      url,
+      {},
+      {
+        headers: getHeaders(),
+      }
+    );
 
     return response.data;
   } catch (error) {
