@@ -42,32 +42,6 @@ const CaptainHome = () => {
               Let's go
             </button>
           </div>
-
-          <div className=" mt-3 flex justify-center">
-            <button
-              onClick={toggleDropdown}
-              className="bg-gray-800 text-white p-2 rounded-md flex items-center"
-            >
-              Toggle Details
-              <ExpandMoreIcon
-                className={`transition-transform duration-300 ${
-                  isOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-          </div>
-        </div>
-
-        <div
-          ref={dropdownRef}
-          className="overflow-hidden bg-gray-200 w-1/2 mt-2 p-4 flex flex-col text-black"
-          style={{ height: 0, opacity: 0 }}
-        >
-          <p className="text-[20px] font-sans font-bold">
-            Additional Trip Details
-          </p>
-          <p className="text-[10px] font-bold">Pickup Time: 10:00 AM</p>
-          <p className="text-[10px] font-bold">Drop Time: 11:30 AM</p>
         </div>
       </div>
     </div>
