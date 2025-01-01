@@ -11,7 +11,7 @@ const Login = () => {
   return (
     <div className="w-full min-h-screen flex justify-center items-center  bg-black">
       <Link
-        className="absolute top-5 px-3 overflow-x-hidden w-full  text-white text-[30px] font-bold font-sans"
+        className="absolute top-5 px-3 overflow-x-hidden w-full  text-black text-[30px] font-bold font-sans"
         to="/"
       >
         <p className="">Glide</p>

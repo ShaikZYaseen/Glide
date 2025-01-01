@@ -51,10 +51,10 @@ const Upload = () => {
     <div className="w-full h-screen flex items-center justify-center bg-black">
       <Toaster /> {/* Correct placement of Toaster component */}
       <Link
-        className="absolute top-5 px-3 overflow-x-hidden w-full text-white text-[30px] font-bold font-sans"
+        className="absolute top-5 px-3 overflow-x-hidden w-full text-black text-[30px] font-bold font-sans"
         to="/"
       >
-        <p className="absolute top-5 left-5 text-white text-[30px] font-bold font-sans">
+        <p className="absolute top-5 left-5 text-black text-[30px] font-bold font-sans">
           Glide
         </p>
       </Link>

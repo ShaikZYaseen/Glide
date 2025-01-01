@@ -59,7 +59,7 @@ const CaptainUpload = () => {
         className="absolute top-5 px-3 overflow-x-hidden w-full  text-white text-[30px] font-bold font-sans"
         to="/"
       >
-        <p className="absolute top-5 left-5 text-white text-[30px] font-bold font-sans">
+        <p className="absolute top-5 text-black left-5  text-[30px] font-bold font-sans">
           Glide
         </p>
       </Link>
