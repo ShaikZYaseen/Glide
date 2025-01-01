@@ -6,7 +6,17 @@ import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { gsap } from "gsap";
 import LocationMap from "./LocationMap";
 
-const RidePopup = () => {
+interface propType {
+  setCaptainDashboard: React.Dispatch<React.SetStateAction<boolean>>;
+  setRidePopup: React.Dispatch<React.SetStateAction<boolean>>;
+  setConfirmRidePopup: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const RidePopup = ({
+  setCaptainDashboard,
+  setRidePopup,
+  setConfirmRidePopup,
+}: propType) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -48,6 +58,7 @@ const RidePopup = () => {
           ref={containerRef}
           className="absolute bottom-0 h-auto  w-full flex flex-col bg-black items-center justify-center z-50 cursor-pointer  text-white px-10 overflow-hidden transition-all duration-500 ease-in-out"
         >
+          <h1 className="text-[20px] font-bold p-3">New Ride available!</h1>
           <div className="flex justify-around w-1/3 items-center p-3">
             <img
               className="h-[70px] w-[70px] rounded-[50%] object-cover"
@@ -91,19 +102,21 @@ const RidePopup = () => {
 
             <div className="overflow-hidden flex flex-col justify-center items-center mt-[25px]">
               <button
-                // onClick={() => {
-                //   setDriverLoading(true);
-                //   setConfirmRide(false);
-                // }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setRidePopup(false);
+                  setConfirmRidePopup(true);
+                }}
                 className="bg-green-500 w-[200px] p-2  rounded-md text-white font-bold"
               >
                 Accept
               </button>
               <button
-                // onClick={() => {
-                //   setDriverLoading(true);
-                //   setConfirmRide(false);
-                // }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setRidePopup(false);
+                  setCaptainDashboard(true);
+                }}
                 className="bg-gray-300 mt-3 w-[200px] p-2 rounded-md text-white font-bold"
               >
                 Ignore

@@ -6,8 +6,14 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { gsap } from "gsap";
 import { useNavigate } from "react-router-dom";
+import { Input } from "./Input";
 
-const ConfirmRidepopup = () => {
+interface propType {
+  setRidePopup: React.Dispatch<React.SetStateAction<boolean>>;
+  setConfirmRidePopup: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ConfirmRidepopup = ({ setRidePopup, setConfirmRidePopup }: propType) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -21,7 +27,7 @@ const ConfirmRidepopup = () => {
       if (isExpanded) {
         gsap.to(containerRef.current, {
           duration: 0.5,
-          height: "510px",
+          height: "auto",
           opacity: 1,
           ease: "power2.out",
         });
@@ -48,7 +54,7 @@ const ConfirmRidepopup = () => {
       >
         <div
           ref={containerRef}
-          className="absolute bottom-0 h-auto  w-full flex flex-col bg-black items-center justify-center z-50 cursor-pointer  text-white px-10 overflow-hidden transition-all duration-500 ease-in-out"
+          className="absolute bottom-0 h-auto py-10  w-full flex flex-col bg-black items-center justify-center z-50 cursor-pointer  text-white px-10 overflow-hidden transition-all duration-500 ease-in-out"
         >
           <div className="flex justify-around w-1/3 items-center p-3">
             <img
@@ -90,6 +96,15 @@ const ConfirmRidepopup = () => {
                 <span>cash cash</span>
               </div>
             </p>
+            <div className="flex mt-5 items-center justify-center">
+              <p className="mr-3">Enter OTP: </p>
+              <Input
+                type="number"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              />
+            </div>
 
             <div className="overflow-hidden flex  justify-center items-center mt-[25px]">
               <button
@@ -101,10 +116,11 @@ const ConfirmRidepopup = () => {
                 Confirm
               </button>
               <button
-                // onClick={() => {
-                //   setDriverLoading(true);
-                //   setConfirmRide(false);
-                // }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setConfirmRidePopup(false);
+                  setRidePopup(true);
+                }}
                 className="bg-gray-300  w-[100px] p-2 rounded-md text-white font-bold"
               >
                 Cancel
