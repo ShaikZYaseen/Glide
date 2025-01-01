@@ -5,6 +5,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { captainLogout } from "../services/auth";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import RidePopup from "../components/ui/RidePopup";
+import ConfirmRidepopup from "../components/ui/ConifrmRidepopup";
 
 const CaptainHome = () => {
   const navigate = useNavigate();
@@ -22,7 +24,8 @@ const CaptainHome = () => {
   return (
     <div className="w-full bg-black h-screen relative">
       <Toaster />
-      <span
+
+      {/* <span
         onClick={() => handleLogout()}
         className="absolute top-4 right-4 text-black font-extrabold p-1 hover:text-gray-500 z-50 cursor-pointer"
       >
@@ -71,6 +74,14 @@ const CaptainHome = () => {
             <p className="text-white text-[12px]">Hours Online</p>
           </div>
         </div>
+      </div> */}
+
+      {/* <div>
+        <RidePopup />
+      </div> */}
+
+      <div className="h-screen">
+        <ConfirmRidepopup />
       </div>
     </div>
   );
