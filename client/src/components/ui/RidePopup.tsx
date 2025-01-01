@@ -97,7 +97,7 @@ const RidePopup = () => {
                 // }}
                 className="bg-green-500 w-[200px] p-2  rounded-md text-white font-bold"
               >
-                Confirm
+                Accept
               </button>
               <button
                 // onClick={() => {

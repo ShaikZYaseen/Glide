@@ -5,9 +5,11 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { gsap } from "gsap";
+import { useNavigate } from "react-router-dom";
 
 const ConfirmRidepopup = () => {
   const [isExpanded, setIsExpanded] = useState(true);
+  const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const toggleVisibility = () => {
@@ -89,13 +91,12 @@ const ConfirmRidepopup = () => {
               </div>
             </p>
 
-            <div className="overflow-hidden flex flex-col justify-center items-center mt-[25px]">
+            <div className="overflow-hidden flex  justify-center items-center mt-[25px]">
               <button
-                // onClick={() => {
-                //   setDriverLoading(true);
-                //   setConfirmRide(false);
-                // }}
-                className="bg-green-500 w-[200px] p-2  rounded-md text-white font-bold"
+                onClick={() => {
+                  navigate("/captain-riding");
+                }}
+                className="bg-green-500 w-[100px] p-2 mr-10  rounded-md text-white font-bold"
               >
                 Confirm
               </button>
@@ -104,15 +105,15 @@ const ConfirmRidepopup = () => {
                 //   setDriverLoading(true);
                 //   setConfirmRide(false);
                 // }}
-                className="bg-gray-300 mt-3 w-[200px] p-2 rounded-md text-white font-bold"
+                className="bg-gray-300  w-[100px] p-2 rounded-md text-white font-bold"
               >
-                Ignore
+                Cancel
               </button>
             </div>
           </div>
         </div>
         <p className="text-white text-xl z-1000000 p-3 mr-2 font-bold">
-          New ride available
+          Confirm the ride to start
         </p>
         {isExpanded ? (
           <ExpandLess fontSize="large" className="text-white" />

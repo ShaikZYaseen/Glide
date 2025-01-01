@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import { AppProviders } from "./context/AppProviders";
 import ProtectedRoute from "./utils/Protected";
+import CaptainRiding from "./pages/CaptainRiding";
 
 // Lazy load components
 const Hero = lazy(() => import("./pages/Hero"));
@@ -44,6 +45,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <CaptainHome />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/captain-riding"
+            element={
+              <ProtectedRoute>
+                <CaptainRiding />
               </ProtectedRoute>
             }
           />
