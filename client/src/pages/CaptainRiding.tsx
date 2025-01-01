@@ -3,6 +3,7 @@ import LocationMap from "../components/ui/LocationMap";
 
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { gsap } from "gsap";
+import FinishRide from "../components/ui/FinishRide";
 
 const CaptainRiding = () => {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -17,7 +18,7 @@ const CaptainRiding = () => {
       if (isExpanded) {
         gsap.to(containerRef.current, {
           duration: 0.5,
-          height: "100px",
+          height: "auto",
           opacity: 1,
           ease: "power2.out",
         });
@@ -46,6 +47,11 @@ const CaptainRiding = () => {
           ref={containerRef}
           className="absolute bottom-0 h-auto  w-full flex  bg-black items-center justify-center z-50 cursor-pointer  text-white px-10 overflow-hidden transition-all duration-500 ease-in-out"
         >
+          <div className="w-full p-5 h-auto flex flex-col bg-black justify-center items-center">
+            <FinishRide />
+          </div>
+        </div>
+        <div className="flex items-center justify-center p-3">
           <p className="mr-10 font-bold text-[20px]">4 KM away</p>
           <button
             // onClick={() => {
@@ -56,9 +62,7 @@ const CaptainRiding = () => {
             Complete ride
           </button>
         </div>
-        <p className="text-white text--[8px] z-1000000 p-3 mr-2 font-bold">
-          Riding
-        </p>
+
         {isExpanded ? (
           <ExpandLess fontSize="small" className="text-white" />
         ) : (
