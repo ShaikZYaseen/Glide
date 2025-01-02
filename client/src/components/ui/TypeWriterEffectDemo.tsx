@@ -27,7 +27,7 @@ export function TypewriterEffectDemo() {
     },
   ];
   return (
-    <div className="flex flex-col items-center justify-center h-[40rem] bg-gray-100">
+    <div className="flex flex-col items-center justify-center h-[40rem] bg-white">
       <p className="font-bold text-black text-base  mb-10">
         Your Journey, Simplified.
       </p>
