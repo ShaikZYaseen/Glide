@@ -6,6 +6,7 @@ import path from "path";
 dotenv.config();
 import { userRouter } from "./routes/user.routes";
 import { captainRouter } from "./routes/captain.routes";
+import mapRouter from "./routes/maps.routes";
 const app = express();
 
 app.use(express.json());
@@ -20,6 +21,7 @@ app.use(
 );
 
 app.use("/api/v1/auth", userRouter);
+app.use("/api/v1/map", mapRouter);
 app.use("/api/v1/captain", captainRouter);
 
 app.use("/uploads", express.static(path.join(__dirname, "./src/uploads")));

@@ -7,19 +7,19 @@ export function TypewriterEffectDemo() {
   const words = [
     {
       text: "Shorten",
-      className: "font-bold text-black",
+      className: "font-bold text-white",
     },
     {
       text: "your",
-      className: "font-bold  text-black",
+      className: "font-bold  text-white",
     },
     {
       text: "distances",
-      className: "font-bold  text-black",
+      className: "font-bold  text-white",
     },
     {
       text: "with",
-      className: "font-bold  text-black",
+      className: "font-bold  text-white",
     },
     {
       text: "Glide.",
@@ -27,8 +27,8 @@ export function TypewriterEffectDemo() {
     },
   ];
   return (
-    <div className="flex flex-col items-center justify-center h-[40rem] bg-white">
-      <p className="font-bold text-black text-base  mb-10">
+    <div className="flex flex-col items-center justify-center h-[40rem]  bg-gray-50 dark:bg-zinc-800">
+      <p className="font-bold text-white text-base  mb-10">
         Your Journey, Simplified.
       </p>
       <TypewriterEffect words={words} />
