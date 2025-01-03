@@ -81,9 +81,9 @@ const getDistanceTime = async (req: Request, res: Response): Promise<any> => {
 };
 
 const getSuggestions = async (req: Request, res: Response): Promise<any> => {
-  const { query } = req.query;
+  const { input } = req.query;
 
-  if (!query) {
+  if (!input) {
     return res.status(400).json({ error: "Query is required" });
   }
 
@@ -91,7 +91,7 @@ const getSuggestions = async (req: Request, res: Response): Promise<any> => {
     // Make a request to the Mapbox Geocoding API
     const response = await axios.get(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-        query as string
+        input as string
       )}.json`,
       {
         params: {
