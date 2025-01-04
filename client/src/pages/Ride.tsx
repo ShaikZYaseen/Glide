@@ -95,6 +95,15 @@ const Ride = ({
           <div
             key={index}
             onClick={() => {
+              if (index === 0) {
+                setVehicleType("auto");
+              }
+              if (index === 1) {
+                setVehicleType("car");
+              }
+              if (index === 2) {
+                setVehicleType("bike");
+              }
               setRideType(false);
               setConfirmRide(true);
             }}
