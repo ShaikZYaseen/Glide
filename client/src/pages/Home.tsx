@@ -13,7 +13,7 @@ const Home = () => {
   const [driverLoading, setDriverLoading] = useState(false);
   return (
     <div>
-      {home && <HomePage />}
+      {home && <HomePage setHome={setHome} setRideType={setRideType} />}
 
       {rideType && (
         <Ride setConfirmRide={setConfirmRide} setRideType={setRideType} />
