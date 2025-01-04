@@ -10,7 +10,7 @@ const Home = () => {
   const [rideType, setRideType] = useState(false);
   const [confirmRide, setConfirmRide] = useState(false);
   const [confirmDriver, setConfirmDriver] = useState(false);
-
+  const [vehicleType, setVehicleType] = useState("");
   const [location, setLocation] = useState("");
   const [destination, setDestination] = useState("");
   const [driverLoading, setDriverLoading] = useState(false);
@@ -31,6 +31,7 @@ const Home = () => {
         <Ride
           location={location}
           destination={destination}
+          setVehicleType={setVehicleType}
           setConfirmRide={setConfirmRide}
           setRideType={setRideType}
         />
