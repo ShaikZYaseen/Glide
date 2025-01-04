@@ -150,10 +150,10 @@ export const createRide = async (
 
 export const getFare = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { pickup, destination, vehicleType } = req.query;
-    if (!pickup || !destination || !vehicleType) {
+    const { pickup, destination } = req.query;
+    if (!pickup || !destination) {
       res.status(400).json({
-        message: "Pickup, destination, and vehicle type are required",
+        message: "Pickup, destination are required",
       });
       return;
     }

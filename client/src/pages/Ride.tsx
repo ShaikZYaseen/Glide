@@ -12,6 +12,11 @@ interface propType {
   destination: string;
 }
 
+interface Fare {
+  fare: number;
+  vehicleType: string;
+}
+
 const Ride = ({
   setConfirmRide,
   setRideType,
@@ -19,6 +24,7 @@ const Ride = ({
   destination,
 }: propType) => {
   const [isExpanded, setIsExpanded] = useState(true);
+  const [fares, setFares] = useState<Fare[]>([]);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   const toggleVisibility = () => {
@@ -27,7 +33,7 @@ const Ride = ({
 
   const getFares = async () => {
     const data = await getAllFare(location, destination);
-    console.log("data", data);
+    setFares(data.fares);
   };
 
   useEffect(() => {
@@ -105,7 +111,9 @@ const Ride = ({
             <span className="text-[9px]">2mins away, 7:30pm</span>
             <span className="text-[10px]">Affordable, compact rides</span>
           </span>
-          <span className="p-3">₹ 573 /-</span>
+          <span className="p-3">
+            ₹ {fares[1].fare.toLocaleString("en-IN")} /-
+          </span>
         </div>
 
         <div
@@ -130,7 +138,9 @@ const Ride = ({
             <span className="text-[9px]">2mins away, 7:30pm</span>
             <span className="text-[10px]">Affordable, compact rides</span>
           </span>
-          <span className="p-3">₹ 234 /-</span>
+          <span className="p-3">
+            ₹ {fares[0].fare.toLocaleString("en-IN")} /-
+          </span>
         </div>
 
         <div
@@ -155,7 +165,9 @@ const Ride = ({
             <span className="text-[9px]">2mins away ,7:30pm</span>
             <span className="text-[10px]">Affordable, compact rides</span>
           </span>
-          <span className="p-3">₹ 154 /-</span>
+          <span className="p-3">
+            ₹ {fares[2].fare.toLocaleString("en-IN")} /-
+          </span>
         </div>
 
         <p className="h-[2px] flex items-center bg-black pr-[200px] justify-center mb-10"></p>

@@ -51,9 +51,9 @@ const HomePage = ({
     if (location) {
       getSuggestionsLocation(location);
     }
-    if (location == "" || destination == "") {
-      setSuggestions([]);
-    }
+    // if (location == "" || destination == "") {
+    //   setSuggestions([]);
+    // }
     if (destination) {
       getSuggestionsLocation(destination);
     }
