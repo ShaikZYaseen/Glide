@@ -9,16 +9,25 @@ import toast, { Toaster } from "react-hot-toast";
 
 interface homeProps {
   setHome: React.Dispatch<React.SetStateAction<boolean>>;
+  setLocation: React.Dispatch<React.SetStateAction<string>>;
+  setDestination: React.Dispatch<React.SetStateAction<string>>;
+  location: string;
+  destination: string;
   setRideType: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const HomePage = ({ setHome, setRideType }: homeProps) => {
+const HomePage = ({
+  setHome,
+  setRideType,
+  setLocation,
+  setDestination,
+  location,
+  destination,
+}: homeProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const destinationInputRef = useRef<HTMLInputElement>(null);
   const [div, setDiv] = React.useState(false);
   const [suggestions, setSuggestions] = React.useState([]);
-  const [location, setLocation] = React.useState("");
-  const [destination, setDestination] = React.useState("");
   const [activeField, setActiveField] = React.useState<
     "location" | "destination" | null
   >(null);

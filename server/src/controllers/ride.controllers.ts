@@ -61,6 +61,26 @@ const calculateFare = (
   );
 };
 
+const calculateAllFare = (
+  distance: number,
+  duration: number
+): { vehicleType: "auto" | "car" | "bike"; fare: number }[] => {
+  const baseFare = { auto: 24, car: 40, bike: 16 };
+  const perKmRate = { auto: 8, car: 12, bike: 6.4 };
+  const perMinuteRate = { auto: 1.6, car: 2.4, bike: 1.2 };
+
+  const rideTypes: ("auto" | "car" | "bike")[] = ["auto", "car", "bike"];
+
+  return rideTypes.map((rideType) => ({
+    vehicleType: rideType,
+    fare: Math.round(
+      baseFare[rideType] +
+        (distance / 1000) * perKmRate[rideType] +
+        (duration / 60) * perMinuteRate[rideType]
+    ),
+  }));
+};
+
 export const createRide = async (
   req: Request,
   res: Response
@@ -149,13 +169,9 @@ export const getFare = async (req: Request, res: Response): Promise<void> => {
     );
 
     // Calculate fare
-    const fare = calculateFare(
-      distance,
-      duration,
-      vehicleType as "auto" | "car" | "bike"
-    );
+    const fares = calculateAllFare(distance, duration);
 
-    res.status(200).json({ fare });
+    res.status(200).json({ fares });
     return;
   } catch (error) {
     console.error("Error getting fare:", (error as Error).message);

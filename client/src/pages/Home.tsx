@@ -10,13 +10,30 @@ const Home = () => {
   const [rideType, setRideType] = useState(false);
   const [confirmRide, setConfirmRide] = useState(false);
   const [confirmDriver, setConfirmDriver] = useState(false);
+
+  const [location, setLocation] = useState("");
+  const [destination, setDestination] = useState("");
   const [driverLoading, setDriverLoading] = useState(false);
   return (
     <div>
-      {home && <HomePage setHome={setHome} setRideType={setRideType} />}
+      {home && (
+        <HomePage
+          setHome={setHome}
+          setLocation={setLocation}
+          setDestination={setDestination}
+          location={location}
+          destination={destination}
+          setRideType={setRideType}
+        />
+      )}
 
       {rideType && (
-        <Ride setConfirmRide={setConfirmRide} setRideType={setRideType} />
+        <Ride
+          location={location}
+          destination={destination}
+          setConfirmRide={setConfirmRide}
+          setRideType={setRideType}
+        />
       )}
       {confirmRide && (
         <RideConfirmComponent

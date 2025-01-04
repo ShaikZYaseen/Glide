@@ -15,3 +15,16 @@ export const getSuggestions = async (value: string) => {
     throw error;
   }
 };
+
+export const getAllFare = async (pickup: string, destination: string) => {
+  try {
+    let url = `${link}/api/v1/ride/get-fare?pickup=${pickup}&destination=${destination}`;
+    const response = await axios.get(url, {
+      headers: getHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

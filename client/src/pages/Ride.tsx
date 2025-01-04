@@ -3,19 +3,36 @@ import LocationMap from "../components/ui/LocationMap";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import BoyIcon from "@mui/icons-material/Boy";
 import { gsap } from "gsap";
+import { getAllFare } from "../services/ride";
 
 interface propType {
   setConfirmRide: React.Dispatch<React.SetStateAction<boolean>>;
   setRideType: React.Dispatch<React.SetStateAction<boolean>>;
+  location: string;
+  destination: string;
 }
 
-const Ride = ({ setConfirmRide, setRideType }: propType) => {
+const Ride = ({
+  setConfirmRide,
+  setRideType,
+  location,
+  destination,
+}: propType) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   const toggleVisibility = () => {
     setIsExpanded(!isExpanded);
   };
+
+  const getFares = async () => {
+    const data = await getAllFare(location, destination);
+    console.log("data", data);
+  };
+
+  useEffect(() => {
+    getFares();
+  }, []);
 
   useEffect(() => {
     if (contentRef.current) {

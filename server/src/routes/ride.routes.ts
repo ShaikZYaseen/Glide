@@ -5,6 +5,6 @@ import { authMiddleware } from "../middlewares/auth.middlewares";
 const rideRouter = express.Router();
 
 rideRouter.route("/create-ride").post(authMiddleware, createRide);
-rideRouter.route("/get-fare").post(authMiddleware, getFare);
+rideRouter.route("/get-fare").get(authMiddleware, getFare);
 
 export default rideRouter;
