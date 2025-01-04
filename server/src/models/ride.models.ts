@@ -33,6 +33,10 @@ const rideSchema = new mongoose.Schema({
   distance: {
     type: Number,
   },
+  otp: {
+    type: String,
+    select: false,
+  },
   paymentId: {
     type: String,
   },
