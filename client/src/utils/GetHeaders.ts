@@ -6,7 +6,7 @@ export const getHeaders = () => {
   };
 
   if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
+    headers["authorization"] = token;
   }
 
   return headers;

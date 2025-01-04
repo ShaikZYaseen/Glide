@@ -1,25 +1,41 @@
 import React from "react";
 import PlaceIcon from "@mui/icons-material/Place";
 
-const LocationPanel = () => {
-  const options = [
-    "Bengaluru Marriott Hotel Whitefield",
-    "Bengaluru Marriott Hotel Whitefield",
-    "Bengaluru Marriott Hotel Whitefield",
-    "Bengaluru Marriott Hotel Whitefield",
-    "Bengaluru Marriott Hotel Whitefield",
-  ];
+interface Suggestion {
+  id: string;
+  place_name: string;
+  coordinates: number[];
+}
+
+interface LocationPanelProps {
+  suggestions: Suggestion[];
+  setDestination: React.Dispatch<React.SetStateAction<string>>;
+  setLocation: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const LocationPanel = ({
+  suggestions,
+  setLocation,
+  setDestination,
+}: LocationPanelProps) => {
   return (
     <div className="w-screen h-screen mt-[180px] z-100 bg-zinc-800">
-      {options &&
-        options.map((option, index) => (
-          <p
-            key={index}
+      {suggestions &&
+        suggestions.map((option) => (
+          <span
+            key={option.id} // Use unique `id` as the key
             className="text-white text-[14px] w-full flex items-center text-start pl-[240px] bg-white p-3 shadow-sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log("Selected:");
+              setLocation(option.place_name); // Update location
+              setDestination(option.place_name); // Update destination
+            }}
           >
             <PlaceIcon className="text-black" />
-            <span className="ml-2 text-black">{option}</span>
-          </p>
+
+            <span className="ml-2 text-black">{option.place_name}</span>
+          </span>
         ))}
     </div>
   );
