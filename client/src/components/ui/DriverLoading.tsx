@@ -5,13 +5,19 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { gsap } from "gsap";
+import toast, { Toaster } from "react-hot-toast";
 
 interface propType {
   setConfirmDriver: React.Dispatch<React.SetStateAction<boolean>>;
   setDriverLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  driverLoading: boolean;
 }
 
-const DriverLoading = ({ setDriverLoading, setConfirmDriver }: propType) => {
+const DriverLoading = ({
+  setDriverLoading,
+  setConfirmDriver,
+  driverLoading,
+}: propType) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -39,10 +45,16 @@ const DriverLoading = ({ setDriverLoading, setConfirmDriver }: propType) => {
     }
   }, [isExpanded]);
 
-  setTimeout(() => {
-    setDriverLoading(false);
-    setConfirmDriver(true);
-  }, 2000);
+  // setTimeout(() => {
+  //   setDriverLoading(false);
+  //   setConfirmDriver(true);
+  // }, 2000);
+
+  useEffect(() => {
+    if (driverLoading) {
+      toast.loading("Looking for drivers");
+    }
+  }, [driverLoading]);
 
   return (
     <div className="w-full bg-black h-screen relative overflow-hidden">

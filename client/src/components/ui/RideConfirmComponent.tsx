@@ -5,15 +5,30 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { gsap } from "gsap";
+import { createRide } from "../../services/ride";
+import toast, { Toaster } from "react-hot-toast";
+
+interface Fare {
+  vehicleType: string;
+  fare: number;
+}
 
 interface propType {
   setConfirmRide: React.Dispatch<React.SetStateAction<boolean>>;
   setDriverLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  location: string;
+  destination: string;
+  fares: Fare[];
+  vehicleType: string;
 }
 
 const RideConfirmComponent = ({
   setDriverLoading,
   setConfirmRide,
+  location,
+  fares,
+  destination,
+  vehicleType,
 }: propType) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -43,6 +58,32 @@ const RideConfirmComponent = ({
     }
   }, [isExpanded]);
 
+  const Fare = fares.find((fare) => fare.vehicleType === vehicleType);
+  // Get the first matching fare
+
+  const getVehicleImage = (type: string) => {
+    if (type === "car") {
+      return "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSLebVsz1pNjN88Pq7SmusZvBl9BCurZan79fKrkaV_m8tIw4yS";
+    } else if (type === "auto") {
+      return "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTJCNvVYbc3V-GMD1a5OZNTqWkkshNVTRjMX9Jt0YNqTMpCk9vf";
+    } else if (type === "bike") {
+      return "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR1AXMofWHBvX9lOj7GEOOlljfQv1MIIIvchxDbeEtAozNlNipl";
+    }
+    return ""; // Default image if no match
+  };
+
+  const handleCreateRide = async () => {
+    const response = await createRide(
+      location,
+      destination,
+      Fare?.vehicleType || ""
+    );
+    if (!response.error) {
+      setDriverLoading(true);
+      setConfirmRide(false);
+    }
+  };
+
   return (
     <div className="w-full bg-black h-screen relative overflow-hidden">
       <span className="w-full h-full">
@@ -71,16 +112,15 @@ const RideConfirmComponent = ({
         <div className="w-full h-full flex flex-col bg-black justify-center items-center">
           <img
             className="h-[140px] w-[140px] object-contain"
-            src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSLebVsz1pNjN88Pq7SmusZvBl9BCurZan79fKrkaV_m8tIw4yS"
-            alt="car"
+            src={getVehicleImage(vehicleType)}
+            alt={vehicleType}
           />
           <p className="text-black h-[60px] bg-white flex  mt-3 border border-white w-1/3 p-2 rounded-md items-center justify-center ">
             <div className="p-2">
               <PlaceIcon />
             </div>
             <div className="flex flex-col">
-              <span>562/11-A</span>
-              <span>Rayalseema,Kadapa</span>
+              <span>{location}</span>
             </div>
           </p>
 
@@ -89,8 +129,7 @@ const RideConfirmComponent = ({
               <PlaceIcon />
             </div>
             <div className="flex flex-col">
-              <span>562/11-A</span>
-              <span>Rayalseema,Kadapa</span>
+              <span>{destination}</span>
             </div>
           </p>
 
@@ -99,7 +138,7 @@ const RideConfirmComponent = ({
               <CurrencyRupeeIcon className="w-full h-full" />
             </div>
             <div className="flex flex-col   ">
-              <span>193.20</span>
+              <span>{Fare?.fare?.toLocaleString("en-IN") || null}/-</span>
               <span>cash cash</span>
             </div>
           </p>
@@ -107,8 +146,7 @@ const RideConfirmComponent = ({
           <div className="overflow-hidden">
             <button
               onClick={() => {
-                setDriverLoading(true);
-                setConfirmRide(false);
+                handleCreateRide();
               }}
               className="bg-green-500 w-[200px] p-2 rounded-md text-white font-bold mt-4"
             >

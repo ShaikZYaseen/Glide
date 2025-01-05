@@ -5,28 +5,33 @@ import BoyIcon from "@mui/icons-material/Boy";
 import { gsap } from "gsap";
 import { getAllFare } from "../services/ride";
 
-interface propType {
+// Define the fare type structure
+interface Fare {
+  vehicleType: string;
+  fare: number;
+}
+
+// Define the prop types
+interface PropType {
   setConfirmRide: React.Dispatch<React.SetStateAction<boolean>>;
   setRideType: React.Dispatch<React.SetStateAction<boolean>>;
   setVehicleType: React.Dispatch<React.SetStateAction<string>>;
+  setFares: React.Dispatch<React.SetStateAction<Fare[]>>;
+  fares: Fare[];
   location: string;
   destination: string;
 }
 
-interface Fare {
-  fare: number;
-  vehicleType: string;
-}
-
-const Ride = ({
+const Ride: React.FC<PropType> = ({
   setConfirmRide,
   setRideType,
   setVehicleType,
+  setFares,
+  fares,
   location,
   destination,
-}: propType) => {
+}) => {
   const [isExpanded, setIsExpanded] = useState(true);
-  const [fares, setFares] = useState<Fare[]>([]);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   const toggleVisibility = () => {
@@ -35,12 +40,14 @@ const Ride = ({
 
   const getFares = async () => {
     const data = await getAllFare(location, destination);
-    setFares(data.fares);
+    if (data?.fares) {
+      setFares(data.fares);
+    }
   };
 
   useEffect(() => {
     getFares();
-  }, []);
+  }, [location, destination]);
 
   useEffect(() => {
     if (contentRef.current) {

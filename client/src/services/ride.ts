@@ -28,3 +28,24 @@ export const getAllFare = async (pickup: string, destination: string) => {
     throw error;
   }
 };
+
+export const createRide = async (
+  pickup: string,
+  destination: string,
+  vehicleType: string
+) => {
+  try {
+    let url = `${link}/api/v1/ride/create-ride?pickup=${pickup}&destination=${destination}&vehicleType=${vehicleType}`;
+    const response = await axios.post(
+      url,
+      {},
+      {
+        headers: getHeaders(),
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

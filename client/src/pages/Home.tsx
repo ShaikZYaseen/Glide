@@ -5,12 +5,19 @@ import Ride from "./Ride";
 import DriverLoading from "../components/ui/DriverLoading";
 import DriverConfirm from "../components/ui/DriverConfirm";
 
+interface Fare {
+  fare: number;
+  vehicleType: string;
+}
+
 const Home = () => {
   const [home, setHome] = useState(true);
   const [rideType, setRideType] = useState(false);
   const [confirmRide, setConfirmRide] = useState(false);
   const [confirmDriver, setConfirmDriver] = useState(false);
   const [vehicleType, setVehicleType] = useState("");
+  const [fares, setFares] = useState<Fare[]>([]);
+
   const [location, setLocation] = useState("");
   const [destination, setDestination] = useState("");
   const [driverLoading, setDriverLoading] = useState(false);
@@ -30,6 +37,8 @@ const Home = () => {
       {rideType && (
         <Ride
           location={location}
+          fares={fares}
+          setFares={setFares}
           destination={destination}
           setVehicleType={setVehicleType}
           setConfirmRide={setConfirmRide}
@@ -38,6 +47,10 @@ const Home = () => {
       )}
       {confirmRide && (
         <RideConfirmComponent
+          location={location}
+          destination={destination}
+          vehicleType={vehicleType}
+          fares={fares}
           setConfirmRide={setConfirmRide}
           setDriverLoading={setDriverLoading}
         />
@@ -46,6 +59,7 @@ const Home = () => {
         <DriverLoading
           setConfirmDriver={setConfirmDriver}
           setDriverLoading={setDriverLoading}
+          driverLoading={driverLoading}
         />
       )}
       {confirmDriver && <DriverConfirm />}
