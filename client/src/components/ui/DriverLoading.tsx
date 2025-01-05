@@ -11,12 +11,14 @@ interface propType {
   setConfirmDriver: React.Dispatch<React.SetStateAction<boolean>>;
   setDriverLoading: React.Dispatch<React.SetStateAction<boolean>>;
   driverLoading: boolean;
+  ride: any;
 }
 
 const DriverLoading = ({
   setDriverLoading,
   setConfirmDriver,
   driverLoading,
+  ride,
 }: propType) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -90,8 +92,7 @@ const DriverLoading = ({
               <PlaceIcon />
             </div>
             <div className="flex flex-col">
-              <span>562/11-A</span>
-              <span>Rayalseema,Kadapa</span>
+              <span>{ride.pickup}</span>
             </div>
           </p>
 
@@ -100,8 +101,7 @@ const DriverLoading = ({
               <PlaceIcon />
             </div>
             <div className="flex flex-col">
-              <span>562/11-A</span>
-              <span>Rayalseema,Kadapa</span>
+              <span>{ride.destination}</span>
             </div>
           </p>
 
@@ -110,7 +110,7 @@ const DriverLoading = ({
               <CurrencyRupeeIcon className="w-full h-full" />
             </div>
             <div className="flex flex-col   ">
-              <span>193.20</span>
+              <span>{ride.fare.toLocaleString("en-IN")}/-</span>
               <span>cash cash</span>
             </div>
           </p>

@@ -58,6 +58,7 @@ const Home = () => {
       )}
       {driverLoading && (
         <DriverLoading
+          ride={ride}
           setConfirmDriver={setConfirmDriver}
           setDriverLoading={setDriverLoading}
           driverLoading={driverLoading}
