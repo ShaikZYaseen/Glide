@@ -17,7 +17,7 @@ const Home = () => {
   const [confirmDriver, setConfirmDriver] = useState(false);
   const [vehicleType, setVehicleType] = useState("");
   const [fares, setFares] = useState<Fare[]>([]);
-
+  const [ride, setRide] = useState();
   const [location, setLocation] = useState("");
   const [destination, setDestination] = useState("");
   const [driverLoading, setDriverLoading] = useState(false);
@@ -51,6 +51,7 @@ const Home = () => {
           destination={destination}
           vehicleType={vehicleType}
           fares={fares}
+          setRide={setRide}
           setConfirmRide={setConfirmRide}
           setDriverLoading={setDriverLoading}
         />

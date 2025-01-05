@@ -45,19 +45,17 @@ const DriverLoading = ({
     }
   }, [isExpanded]);
 
-  // setTimeout(() => {
-  //   setDriverLoading(false);
-  //   setConfirmDriver(true);
-  // }, 2000);
-
   useEffect(() => {
     if (driverLoading) {
-      toast.loading("Looking for drivers");
+      if (!toast.loading("Looking for drivers", { id: "loading-toast" })) {
+        toast.loading("Looking for drivers", { id: "loading-toast" });
+      }
     }
   }, [driverLoading]);
 
   return (
     <div className="w-full bg-black h-screen relative overflow-hidden">
+      <Toaster />
       <span className="w-full h-full">
         <LocationMap />
       </span>

@@ -6,7 +6,6 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { gsap } from "gsap";
 import { createRide } from "../../services/ride";
-import toast, { Toaster } from "react-hot-toast";
 
 interface Fare {
   vehicleType: string;
@@ -16,6 +15,7 @@ interface Fare {
 interface propType {
   setConfirmRide: React.Dispatch<React.SetStateAction<boolean>>;
   setDriverLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setRide: React.Dispatch<React.SetStateAction<any>>;
   location: string;
   destination: string;
   fares: Fare[];
@@ -25,6 +25,7 @@ interface propType {
 const RideConfirmComponent = ({
   setDriverLoading,
   setConfirmRide,
+  setRide,
   location,
   fares,
   destination,
@@ -78,6 +79,7 @@ const RideConfirmComponent = ({
       destination,
       Fare?.vehicleType || ""
     );
+    setRide(response.ride);
     if (!response.error) {
       setDriverLoading(true);
       setConfirmRide(false);
