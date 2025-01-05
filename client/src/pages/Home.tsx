@@ -4,6 +4,7 @@ import RideConfirmComponent from "../components/ui/RideConfirmComponent";
 import Ride from "./Ride";
 import DriverLoading from "../components/ui/DriverLoading";
 import DriverConfirm from "../components/ui/DriverConfirm";
+import { SocketContext } from "../context/SocketContext";
 
 interface Fare {
   fare: number;
