@@ -46,6 +46,7 @@ const captainSignupController = async (
 
     //@ts-ignore
     const image = await uploadImage(req.file.path);
+    console.log("image", image);
     const newUser = new CaptainModel({
       firstName,
       lastName,
@@ -64,7 +65,7 @@ const captainSignupController = async (
 
     const token = newUser.getJWTToken();
 
-    res.setHeader("Authorization", `Bearer ${token}`);
+    res.setHeader("authorization", token);
 
     return res.status(200).json({
       success: true,

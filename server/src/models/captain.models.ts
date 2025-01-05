@@ -9,6 +9,7 @@ export interface ICaptain extends Document {
   email: string;
   password: string;
   socketId?: string;
+  image?: string;
   status: "active" | "inactive";
   vehicle: {
     color: string;
@@ -48,6 +49,9 @@ const captainSchema = new Schema<ICaptain>({
     select: false,
   },
   socketId: {
+    type: String,
+  },
+  image: {
     type: String,
   },
   status: {

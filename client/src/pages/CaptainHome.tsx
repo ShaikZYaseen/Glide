@@ -7,12 +7,15 @@ import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import RidePopup from "../components/ui/RidePopup";
 import ConfirmRidepopup from "../components/ui/ConifrmRidepopup";
+import { useCaptainSignup } from "../context/CaptainSignupContext";
+
 import { useState } from "react";
 
 const CaptainHome = () => {
   const [captainDashboard, setCaptainDashboard] = useState(false);
   const [ridePopup, setRidePopup] = useState(true);
   const [confirmRidePopup, setConfirmRidePopup] = useState(false);
+  const { signupData } = useCaptainSignup();
 
   const navigate = useNavigate();
   const handleLogout = async () => {

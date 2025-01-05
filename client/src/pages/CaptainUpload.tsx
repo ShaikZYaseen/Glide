@@ -7,7 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useCaptainSignup } from "../context/CaptainSignupContext";
 
 const CaptainUpload = () => {
-  const { signupData } = useCaptainSignup();
+  const { signupData, setSignupData } = useCaptainSignup();
   const navigate = useNavigate();
   const [files, setFiles] = useState<File | null>(null);
 
@@ -41,6 +41,7 @@ const CaptainUpload = () => {
       //@ts-ignore
       const response = await captainSignup(formData);
       if (response.success) {
+        setSignupData(response.user);
         toast.success(response.message); // Trigger success toast
         setTimeout(() => {
           navigate(`/captain-login`);
