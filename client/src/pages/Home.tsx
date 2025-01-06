@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import HomePage from "../components/ui/HomePage";
 import RideConfirmComponent from "../components/ui/RideConfirmComponent";
 import Ride from "./Ride";
@@ -22,6 +22,7 @@ const Home = () => {
   const [location, setLocation] = useState("");
   const [destination, setDestination] = useState("");
   const [driverLoading, setDriverLoading] = useState(false);
+  const {sendMessage, receiveMessage} = useContext(SocketContext)
   return (
     <div>
       {home && (

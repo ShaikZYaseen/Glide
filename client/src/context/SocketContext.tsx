@@ -3,7 +3,11 @@ import { io, Socket } from "socket.io-client";
 
 // Define the shape of the context
 interface SocketContextType {
-  socket: Socket;
+  sendMessage: (eventName: string, message: unknown) => void;
+  receiveMessage: (
+    eventName: string,
+    callback: (data: unknown) => void
+  ) => void;
 }
 
 // Create the context with a default value
@@ -34,8 +38,18 @@ const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     // };
   }, []);
 
+  const sendMessage = (eventName: string, message: unknown): void => {
+    socket.emit(eventName, message);
+  };
+  const receiveMessage = (
+    eventName: string,
+    callback: (data: unknown) => void
+  ): void => {
+    socket.on(eventName, callback);
+  };
+
   return (
-    <SocketContext.Provider value={{ socket }}>
+    <SocketContext.Provider value={{ sendMessage, receiveMessage }}>
       {children}
     </SocketContext.Provider>
   );
