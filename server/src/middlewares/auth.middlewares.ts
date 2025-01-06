@@ -8,7 +8,6 @@ const authMiddleware = (
   res: Response,
   next: NextFunction
 ): void => {
-  console.log(req.headers);
   const token = req.headers.authorization;
 
   if (!token) {
@@ -19,7 +18,7 @@ const authMiddleware = (
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
     //@ts-ignore
-    req.user = decoded;
+    req.user = decoded.id;
 
     next();
   } catch (error) {

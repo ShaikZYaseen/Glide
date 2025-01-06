@@ -125,6 +125,7 @@ const getProfileController = async (
 ): Promise<any> => {
   try {
     //@ts-ignore
+    //@ts-ignore
     const id = req.user;
     const data = await User.findById(id);
     return res.status(200).json({

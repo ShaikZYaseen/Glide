@@ -1,10 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import HomePage from "../components/ui/HomePage";
 import RideConfirmComponent from "../components/ui/RideConfirmComponent";
 import Ride from "./Ride";
 import DriverLoading from "../components/ui/DriverLoading";
 import DriverConfirm from "../components/ui/DriverConfirm";
 import { SocketContext } from "../context/SocketContext";
+import { getLoggedUser } from "../services/auth";
 
 interface Fare {
   fare: number;
@@ -22,7 +23,28 @@ const Home = () => {
   const [location, setLocation] = useState("");
   const [destination, setDestination] = useState("");
   const [driverLoading, setDriverLoading] = useState(false);
-  const {sendMessage, receiveMessage} = useContext(SocketContext)
+  const { sendMessage, receiveMessage } = useContext(SocketContext) || {};
+
+  // useEffect(()=>{
+  //   sendMessage("join",{userType:"user",userId:})
+  // },[])
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { success, user } = await getLoggedUser();
+        console.log(success);
+        if (success && sendMessage) {
+          sendMessage("join", { userType: "user", userId: user?._id });
+        }
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+      }
+    };
+
+    fetchUser();
+  }, [sendMessage]);
+
   return (
     <div>
       {home && (

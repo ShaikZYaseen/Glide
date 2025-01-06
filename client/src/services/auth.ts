@@ -112,3 +112,14 @@ export async function userLogout() {
     throw error;
   }
 }
+
+export async function getLoggedUser() {
+  try {
+    let url = `${link}/api/v1/auth/profile`;
+    const response = await axios.get(url, { headers: getHeaders() });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
