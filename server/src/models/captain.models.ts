@@ -18,8 +18,8 @@ export interface ICaptain extends Document {
     vehicleType: "car" | "motorcycle" | "auto";
   };
   location?: {
-    lat: number;
-    long: number;
+    ltd: number;
+    lng: number;
   };
   getJWTToken(): string;
   comparePassword(password: string): Promise<boolean>;
@@ -82,10 +82,10 @@ const captainSchema = new Schema<ICaptain>({
     },
   },
   location: {
-    lat: {
+    ltd: {
       type: Number,
     },
-    long: {
+    lng: {
       type: Number,
     },
   },

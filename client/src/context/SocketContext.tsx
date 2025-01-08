@@ -41,6 +41,11 @@ const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   const sendMessage = (eventName: string, message: unknown): void => {
     socket.emit(eventName, message);
   };
+
+  const sendLocation = (eventName: string, data: any): void => {
+    socket.emit(eventName, data);
+  };
+
   const receiveMessage = (
     eventName: string,
     callback: (data: unknown) => void
@@ -49,7 +54,9 @@ const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   };
 
   return (
-    <SocketContext.Provider value={{ sendMessage, receiveMessage }}>
+    <SocketContext.Provider
+      value={{ sendMessage, receiveMessage, sendLocation }}
+    >
       {children}
     </SocketContext.Provider>
   );

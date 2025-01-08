@@ -143,7 +143,7 @@ const getCaptainProfile = async (
 ): Promise<any> => {
   try {
     //@ts-ignore
-    const id = req.user;
+    const id = req.captain;
     const data = await CaptainModel.findById(id);
     return res.status(200).json({
       success: true,
@@ -163,7 +163,7 @@ const captainLogoutController = async (
   next: NextFunction
 ): Promise<any> => {
   try {
-    res.setHeader("Authorization", ""); // Clear Authorization header
+    res.setHeader("authorization", ""); // Clear Authorization header
 
     return res.status(200).json({
       success: true,

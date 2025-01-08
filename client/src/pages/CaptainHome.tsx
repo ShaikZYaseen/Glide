@@ -20,17 +20,39 @@ const CaptainHome = () => {
   const { sendMessage, receiveMessage } = useContext(SocketContext) || {};
 
   useEffect(() => {
+    const getUser = async () => {
+      let { success, user } = await getLoggedCaptainUser();
+      return user;
+    };
+
     const fetchUser = async () => {
       try {
-        const { success, user } = await getLoggedCaptainUser();
-        console.log(user, "pp");
-        if (success && sendMessage) {
-          sendMessage("join", { userType: "user", userId: user?._id });
+        const user = getUser();
+        if (success && sendMessage && user) {
+          sendMessage("join", { userType: "captain", userId: user?._id });
         }
       } catch (error) {
         console.error("Failed to fetch user:", error);
       }
     };
+    const updateLocation = () => {
+      const user = getUser();
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          socket.emit("update-location-captain", {
+            userId: user._id,
+            location: {
+              ltd: position.coords.latitude,
+              lng: position.coords.longitude,
+            },
+          });
+        });
+      }
+    };
+
+    const locationInterval = setInterval(updateLocation, 10000);
+    updateLocation();
 
     fetchUser();
   }, [sendMessage]);

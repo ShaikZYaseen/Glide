@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import axios from "axios";
 import rideModels from "../models/ride.models";
 import crypto from "crypto";
+import { CaptainModel } from "../models/captain.models";
 
 const fetchCoordinates = async (address: string): Promise<string> => {
   const response = await axios.get(
@@ -192,4 +193,19 @@ export const generateOtp = async (num: number): Promise<string> => {
   // Simulate saving OTP to the database or other processing
   // For demonstration, we just resolve it
   return otp;
+};
+
+export const getCaptainsInTheRadius = async (
+  ltd: number,
+  lng: number,
+  radius: number
+) => {
+  const captain = await CaptainModel.find({
+    location: {
+      $geoWithin: {
+        $centerSphere: [[ltd, lng], radius / 3963.2],
+      },
+    },
+  });
+  return captain;
 };
