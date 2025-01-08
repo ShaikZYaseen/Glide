@@ -17,7 +17,8 @@ const CaptainHome = () => {
   const [ridePopup, setRidePopup] = useState(true);
   const [confirmRidePopup, setConfirmRidePopup] = useState(false);
   const { signupData } = useCaptainSignup();
-  const { sendMessage, receiveMessage } = useContext(SocketContext) || {};
+  const { sendMessage, receiveMessage, sendLocation } =
+    useContext(SocketContext) || {};
 
   useEffect(() => {
     const getUser = async () => {
@@ -27,32 +28,32 @@ const CaptainHome = () => {
 
     const fetchUser = async () => {
       try {
-        const user = getUser();
-        if (success && sendMessage && user) {
+        const user = await getUser();
+        if (sendMessage && user) {
           sendMessage("join", { userType: "captain", userId: user?._id });
         }
       } catch (error) {
         console.error("Failed to fetch user:", error);
       }
     };
-    const updateLocation = () => {
-      const user = getUser();
+    const updateLocation = async () => {
+      const user = await getUser();
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-          socket.emit("update-location-captain", {
-            userId: user._id,
-            location: {
-              ltd: position.coords.latitude,
-              lng: position.coords.longitude,
-            },
-          });
+          sendLocation &&
+            sendLocation("update-location-captain", {
+              userId: user._id,
+              location: {
+                ltd: position.coords.latitude,
+                lng: position.coords.longitude,
+              },
+            });
         });
       }
     };
 
     const locationInterval = setInterval(updateLocation, 10000);
-    updateLocation();
 
     fetchUser();
   }, [sendMessage]);

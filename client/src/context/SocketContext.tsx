@@ -8,6 +8,7 @@ interface SocketContextType {
     eventName: string,
     callback: (data: unknown) => void
   ) => void;
+  sendLocation: (eventName: string, data: any) => void;
 }
 
 // Create the context with a default value
