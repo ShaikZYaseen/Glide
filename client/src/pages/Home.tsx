@@ -33,7 +33,6 @@ const Home = () => {
     const fetchUser = async () => {
       try {
         const { success, user } = await getLoggedUser();
-        console.log(success);
         if (success && sendMessage) {
           sendMessage("join", { userType: "user", userId: user?._id });
         }

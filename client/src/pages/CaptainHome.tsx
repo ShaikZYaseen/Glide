@@ -2,20 +2,38 @@ import LocationMap from "../components/ui/LocationMap";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ME from "../assets/ME.jpeg";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { captainLogout } from "../services/auth";
+import { captainLogout, getLoggedCaptainUser } from "../services/auth";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import RidePopup from "../components/ui/RidePopup";
 import ConfirmRidepopup from "../components/ui/ConifrmRidepopup";
 import { useCaptainSignup } from "../context/CaptainSignupContext";
 
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { SocketContext } from "../context/SocketContext";
 
 const CaptainHome = () => {
   const [captainDashboard, setCaptainDashboard] = useState(false);
   const [ridePopup, setRidePopup] = useState(true);
   const [confirmRidePopup, setConfirmRidePopup] = useState(false);
   const { signupData } = useCaptainSignup();
+  const { sendMessage, receiveMessage } = useContext(SocketContext) || {};
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { success, user } = await getLoggedCaptainUser();
+        console.log(user, "pp");
+        if (success && sendMessage) {
+          sendMessage("join", { userType: "user", userId: user?._id });
+        }
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+      }
+    };
+
+    fetchUser();
+  }, [sendMessage]);
 
   const navigate = useNavigate();
   const handleLogout = async () => {

@@ -123,3 +123,14 @@ export async function getLoggedUser() {
     throw error;
   }
 }
+
+export async function getLoggedCaptainUser() {
+  try {
+    let url = `${link}/api/v1/captain/profile`;
+    const response = await axios.get(url, { headers: getHeaders() });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

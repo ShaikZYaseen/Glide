@@ -42,7 +42,7 @@ const captainAuthMiddleware = (
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
     //@ts-ignore
-    req.captain = decoded;
+    req.captain = decoded.id;
 
     next();
   } catch (error) {
