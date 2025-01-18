@@ -60,7 +60,7 @@ function initializeSocket(server: HttpServer): void {
       }
 
       try {
-        await CaptainModel.findByIdAndUpdate(userId, {
+        const update = await CaptainModel.findByIdAndUpdate(userId, {
           location: {
             ltd: location.ltd,
             lng: location.lng,

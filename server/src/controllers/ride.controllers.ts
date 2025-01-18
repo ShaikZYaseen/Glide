@@ -89,6 +89,7 @@ export const createRide = async (
   const { pickup, destination, vehicleType } = req.query;
   //@ts-ignore
   const user = req.user;
+  console.log(pickup, destination, vehicleType, user);
 
   if (!pickup || !destination || !vehicleType) {
     res.status(400).json({
@@ -126,7 +127,7 @@ export const createRide = async (
 
     // Create ride
     const ride = await rideModels.create({
-      user: user.id,
+      user: user,
       pickup,
       distance,
       destination,
@@ -139,6 +140,22 @@ export const createRide = async (
       res.status(500).json({ error: "Error creating ride" });
       return;
     }
+
+    const [lng, ltd] = (await fetchCoordinates(pickup as string))
+      .split(",")
+      .map(Number);
+    const radius = 5000; // Define the radius value
+
+    const captainInRadius = await CaptainModel.find({
+      location: {
+        $geoWithin: {
+          $centerSphere: [[ltd, lng], radius / 6371],
+        },
+      },
+    });
+    console.log(captainInRadius);
+
+    ride.otp = null;
 
     res.status(200).json({ ride });
   } catch (error) {

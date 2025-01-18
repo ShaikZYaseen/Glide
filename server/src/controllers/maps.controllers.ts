@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
+import { CaptainModel } from "../models/captain.models";
 
 const getCoordinates = async (req: Request, res: Response): Promise<void> => {
   const { address } = req.query;
@@ -121,4 +122,32 @@ const getSuggestions = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
-export { getCoordinates, getDistanceTime, getSuggestions };
+const getCaptainInRadius = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  try {
+    const { ltd, lng, radius } = req.body;
+    const captains = await CaptainModel.find({
+      location: {
+        $geoWithin: {
+          $centerSphere: [[ltd, lng], radius / 6371],
+        },
+      },
+    });
+
+    if (!captains) {
+      res.status(404).json({ message: "No drivers nearby" });
+    }
+
+    res.status(200).json({ data: captains });
+    return;
+  } catch (error) {
+    console.error("Error fetching suggestions:", (error as Error).message);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while fetching suggestions" });
+  }
+};
+
+export { getCoordinates, getDistanceTime, getSuggestions, getCaptainInRadius };
