@@ -87,8 +87,22 @@ export const createRide = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { user, pickup, destination, vehicleType } = req.body;
-    const ride = await createRidee({ user, pickup, destination, vehicleType });
+    //@ts-ignore
+    const user = req.user;
+    const { pickup, destination, vehicleType } = req.query;
+    if (
+      typeof vehicleType !== "string" ||
+      !["auto", "car", "bike"].includes(vehicleType)
+    ) {
+      res.status(400).json({ message: "Invalid vehicle type" });
+      return;
+    }
+    const ride = await createRidee({
+      user,
+      pickup: pickup as string,
+      destination: destination as string,
+      vehicleType: vehicleType as string,
+    });
     if (!ride) {
       res.status(400).json({ message: "Failed to create ride" });
       return;
@@ -114,7 +128,7 @@ interface rideProps {
   user: String;
   pickup: String;
   destination: String;
-  vehicleType: "auto" | "car" | "bike";
+  vehicleType: string;
 }
 
 const createRidee = async ({
@@ -128,16 +142,19 @@ const createRidee = async ({
       throw new Error("User, pickup, destination, vehicleType are required");
     }
     const fare = await getMyFare(pickup, destination);
-    if (!fare) {
+    const fareObject = fare?.find((item) => item.vehicleType === vehicleType);
+
+    if (!fareObject) {
       throw new Error("Failed to calculate fare");
     }
+    const otp = await generateOtp(6);
     const ride = rideModels.create({
       user,
       pickup,
       destination,
-      otp: generateOtp(6),
+      otp,
       //@ts-ignore
-      fare: fare[vehicleType],
+      fare: fareObject.fare,
     });
 
     return ride;
