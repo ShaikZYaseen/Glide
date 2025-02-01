@@ -10,17 +10,18 @@ const loginController = async (
   res: Response,
   next: NextFunction
 ): Promise<any> => {
-  const validatedData = loginSchema.parse(req.body);
-  const { email, password } = validatedData;
-
-  if (!email || !password) {
-    return res.status(400).json({
-      success: false,
-      message: "Please provide both email and password.",
-    });
-  }
-
   try {
+    const validatedData = loginSchema.parse(req.body);
+    const { email, password } = validatedData;
+    console.log(email, password);
+
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide both email and password.",
+      });
+    }
+
     const user = await User.findOne({ email }).exec();
     if (!user) {
       return res.status(401).json({

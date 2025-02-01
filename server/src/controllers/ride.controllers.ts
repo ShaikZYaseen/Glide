@@ -86,83 +86,63 @@ export const createRide = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { pickup, destination, vehicleType } = req.query;
-  //@ts-ignore
-  const user = req.user;
-  console.log(pickup, destination, vehicleType, user);
-
-  if (!pickup || !destination || !vehicleType) {
-    res.status(400).json({
-      error: "Pickup, destination, and vehicle type are required",
-    });
-    return;
-  }
-
-  if (!["bike", "auto", "car"].includes(vehicleType as string)) {
-    res
-      .status(400)
-      .json({ error: "Valid ride type is required (bike, auto, car)" });
-    return;
-  }
-
   try {
-    // Fetch coordinates
-    const originCoordinates = await fetchCoordinates(pickup as string);
-    const destinationCoordinates = await fetchCoordinates(
-      destination as string
-    );
-
-    // Get distance and time
-    const { distance, duration } = await fetchDistanceAndTime(
-      originCoordinates,
-      destinationCoordinates
-    );
-
-    // Calculate fare
-    const fare = calculateFare(
-      distance,
-      duration,
-      vehicleType as "auto" | "car" | "bike"
-    );
-
-    // Create ride
-    const ride = await rideModels.create({
-      user: user,
-      pickup,
-      distance,
-      destination,
-      otp: await generateOtp(6),
-      vehicleType,
-      fare,
-    });
-
+    const { user, pickup, destination, vehicleType } = req.body;
+    const ride = await createRidee({ user, pickup, destination, vehicleType });
     if (!ride) {
-      res.status(500).json({ error: "Error creating ride" });
+      res.status(400).json({ message: "Failed to create ride" });
       return;
     }
+    res.status(201).json({ ride });
 
-    const [lng, ltd] = (await fetchCoordinates(pickup as string))
-      .split(",")
-      .map(Number);
-    const radius = 5000; // Define the radius value
+    const originCoordinates = await fetchCoordinates(pickup as string);
+    console.log(originCoordinates);
+    // const destinationCoordinates = await fetchCoordinates(destination as string);
 
-    const captainInRadius = await CaptainModel.find({
-      location: {
-        $geoWithin: {
-          $centerSphere: [[ltd, lng], radius / 6371],
-        },
-      },
-    });
-    console.log(captainInRadius);
-
-    ride.otp = null;
-
-    res.status(200).json({ ride });
+    // const captainsInRadius = await getCaptainsInTheRadius(originCoordinates,destinationCoordinates, 5000);
+    return;
   } catch (error) {
     console.error("Error creating ride:", (error as Error).message);
     res
       .status(500)
       .json({ error: "An error occurred while creating the ride" });
+    return;
+  }
+};
+
+interface rideProps {
+  user: String;
+  pickup: String;
+  destination: String;
+  vehicleType: "auto" | "car" | "bike";
+}
+
+const createRidee = async ({
+  user,
+  pickup,
+  destination,
+  vehicleType,
+}: rideProps) => {
+  try {
+    if (!user || !pickup || !destination || !vehicleType) {
+      throw new Error("User, pickup, destination, vehicleType are required");
+    }
+    const fare = await getMyFare(pickup, destination);
+    if (!fare) {
+      throw new Error("Failed to calculate fare");
+    }
+    const ride = rideModels.create({
+      user,
+      pickup,
+      destination,
+      otp: generateOtp(6),
+      //@ts-ignore
+      fare: fare[vehicleType],
+    });
+
+    return ride;
+  } catch (error) {
+    console.error("Error creating ride:", (error as Error).message);
   }
 };
 
@@ -198,7 +178,7 @@ export const getFare = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const generateOtp = async (num: number): Promise<string> => {
+export const generateOtp = async (num: number) => {
   if (num <= 0) {
     throw new Error("OTP length must be a positive number");
   }
@@ -220,9 +200,36 @@ export const getCaptainsInTheRadius = async (
   const captain = await CaptainModel.find({
     location: {
       $geoWithin: {
-        $centerSphere: [[ltd, lng], radius / 3963.2],
+        $centerSphere: [[ltd, lng], radius / 6371],
       },
     },
   });
   return captain;
+};
+
+const getMyFare = async (pickup: String, destination: String) => {
+  try {
+    if (!pickup || !destination) {
+      throw new Error("Pickup, destination are required");
+      return;
+    }
+    const originCoordinates = await fetchCoordinates(pickup as string);
+    const destinationCoordinates = await fetchCoordinates(
+      destination as string
+    );
+
+    // Get distance and time
+    const { distance, duration } = await fetchDistanceAndTime(
+      originCoordinates,
+      destinationCoordinates
+    );
+
+    // Calculate fare
+    const fares = calculateAllFare(distance, duration);
+    return fares;
+  } catch (error) {
+    console.error("Error getting fare:", (error as Error).message);
+    throw new Error("An error occurred while getting the fare");
+    return;
+  }
 };
